@@ -1,0 +1,1035 @@
+\documentclass[../../master.tex]{subfiles}
+
+\graphicspath{{./image/}}
+
+\begin{document}
+
+\chapter{特殊関数}
+多極子を扱う上で球面調和関数は欠かせないものである。
+球面調和関数はルジャンドル多項式を一般化したものであるルジャンドル陪多項式
+と三角関数\(e^{im\varphi}\)からなる。
+まずはルジャンドル多項式から見ていこう。
+\subsection*{参考文献}
+アルフケン特殊関数\cite{Arfken}, 砂川理論電磁気\cite{Sunakawa}, 前野量子力学\cite{Maeno_QM}
+
+\section{ルジャンドル多項式}
+\subsection{ポアソン方程式}
+始めに電荷密度分布が与えられたとき、静電ポテンシャルを求める問題を考えよう。
+静電場において、電場は保存力であるため
+\begin{equation}
+	\curl \vb*{E}(\vb*{r}) = 0
+\end{equation}
+をみたす。
+外微分のもつ性質\(\text{dd}f=0\)よりあるスカラー関数\(\phi(\vb*{r})\)で
+\begin{equation}
+	\vb*{E}(\vb*{r})= -\grad \phi(\vb*{r})
+\end{equation}
+となるものがある。
+これを静電ポテンシャルという。
+これを電場についてのガウスの法則に入れると
+\begin{equation}
+	\laplacian \phi(\vb*{r}) = -\frac{\rho(\vb*{r})}{\varepsilon_0}
+\end{equation}
+というのが得られる。
+これをポアソン方程式という。
+これの解はグリーン関数によって求められる。
+グリーン関数は次の微分方程式の解である。
+\begin{equation}
+	\laplacian G(\vb*{r}) = -\delta^3(\vb*{r})
+\end{equation}
+これを求める。
+両辺をフーリエ変換すると
+\begin{equation}
+	-\vb*{k}^2G(\vb*{k}) = -\frac{1}{(2\pi^3)}
+\end{equation}
+となる。
+これよりグリーン関数は
+\begin{equation}
+	G(\vb*{r})=\frac{1}{(2\pi^3)}\int_{-\infty}^{\infty} \frac{e^{i\vb*{k}\cdot\vb*{r}}}{\vb*{k}^2}d^3k
+\end{equation}
+となる。この積分を極座標で実行していく。
+原点と\(\vb*{r}\)の示す方向を極座標の軸として
+すると
+\begin{equation}\begin{aligned}[b]
+    G(\vb*{r}) & =\frac{1}{(2\pi^3)}\int_{-\infty}^{\infty} \frac{e^{i\vb*{k}\cdot\vb*{r}}}{\vb*{k}^2}d^3k                                  \\
+	           & =\frac{1}{2\pi^3}\int_{0}^{\infty}dk \int_{0}^{\pi}d\theta \sin\theta \frac{e^{ikx\cos\theta}}{k^2}\int_{0}^{2\pi}d\varphi \\
+	           & =\frac{1}{(2\pi)^2}\int_{0}^{\infty}dk \frac{2i\sin(kx)}{ikx}                                                              \\
+	           & =\frac{1}{4\pi}\frac{1}{\abs{\vb*{r}}}
+\end{aligned}\end{equation}
+となる。
+これよりポアソン方程式の特解は
+\begin{equation}
+	\phi(\vb*{r}) = \frac{1}{4\pi\varepsilon_0}\int d\vb*{r}
+	\frac{\rho(\vb*{r'})}{\abs{\vb*{r'}-\vb*{r}}}
+\end{equation}
+となる。
+\(r>r'\)のとき、極座標では
+\begin{equation}
+	\frac{1}{\abs{\vb*{r'}-\vb*{r}}} = \frac{1}{r}\frac{1}{\sqrt{1-2\cos\theta(r'/r) + (r'/r)^2}}
+\end{equation}
+と書ける。
+\subsection{母関数}
+これはルジャンドル多項式の母関数となっている。
+それは
+\begin{equation}
+	g(t,\,x) = \frac{1}{\sqrt{1-2xt+t^2}} = \sum_{n=0}^{\infty}P_n(x)t^n
+\end{equation}
+というように書ける。
+\footnote{
+ゲーゲンバウアー関数
+\(g(t,\,x,\,\alpha) = (1-2xt+t^2)^{-\alpha}=\sum_n C_n^{\alpha}(x)t^n\)
+というのもある。
+}
+この母関数を\(g(r'/r,\,\cos\theta)\)としたものがポアソン方程式に現れている。
+母関数からその展開係数となっているルジャンドル多項式を導出する。
+テイラー展開より集束半径\(\abs{x}\leq1\)の元
+\begin{equation}
+	(1+x)^\alpha = 1 + \alpha x + \frac{\alpha(\alpha-1)}{2!}x^2+\cdots\frac{\alpha !}{n! (\alpha-n)!}x^n + \cdots
+	= \sum_{n=0}^{\infty} \frac{\alpha !}{n! (\alpha-n)!}x^n
+\end{equation}
+と展開できる。
+これより
+\begin{equation}\begin{aligned}[b]
+    \frac{1}{\sqrt{1-2xt+t^2}} & = \sum_{n=0}^{\infty} \frac{(-1/2)!}{n!(-1/2-n)!}(-2xt+t^2)^n                                                     \\
+	                           & = 1+\sum_{n=1}^{\infty} \frac{(-1/2)(-3/2)\cdots(-(2n-1)/2)}{n!}\times(-1)^n(2xt-t^2)^n                           \\
+	                           & = 1+\sum_{n=1}^{\infty} \frac{(2n-1)!!}{2^n n!}(2xt-t^2)^n                                                        \\
+	                           & = \sum_{n=0}^{\infty} \frac{(2n)!}{2^{2n}(n!)^2}(2x-t)^n \times t^n                                               \\
+	                           & = \sum_{n=0}^{\infty} \frac{(2n)!}{2^{2n}(n!)^2}\qty{\sum_{k=0}^{n}\frac{n!}{k!(n-k)}(2x)^{n-k}(-t)^k} \times t^n \\
+	                           & = \sum_{n=0}^{\infty}\sum_{k=0}^{n}(-1)^k \frac{(2n)!}{2^{2n}n!k!(n-k)!}(2x)^{n-k}t^{n+k}.
+\end{aligned}\end{equation}
+ここで\(n' = n+k,\)というように変数変換をする。
+すると\(0 \leq k \leq n' -k\) より
+\begin{equation}
+	0 \leq k \leq \left\lfloor \frac{n'}{2} \right\rfloor
+\end{equation}
+という範囲になる。
+よって
+\begin{align}
+	\frac{1}{\sqrt{1-2xt+t^2}}
+	       & = \sum_{n=0}^{\infty}\sum_{k=0}^{\lfloor n/2 \rfloor}(-1)^k \frac{(2n-2k)!}{2^{2(n-k)}k!(n-k)!(n-2k)!}(2x)^{n-2k}t^{n} \\
+	P_n(x) & = \sum_{k=0}^{\lfloor n/2 \rfloor}(-1)^k \frac{(2n-2k)!}{2^n k!(n-k)!(n-2k)!}x^{n-2k}
+\end{align}
+
+
+\subsection{漸化式}
+ルジャンドル多項式は1つだけではなく組み合わせて使うことがある。
+ルジャンドル多項式を計算機で効率よく求める際には母関数から得られる漸化式を使うと良いことがある。
+母関数\(g(t,\,x)\)を\(t\)で偏微分すると
+\begin{align}
+	\pdv{g(t,\,x)}{t} = \frac{x-t}{(1-2xt+t^2)^{3/2}} & = \sum_{n=0}^{\infty} nP_n(x)t^{n-1}            \\
+	(x-t)\sum_{n=0}^{\infty} P_n(x) t^n               & = (1-2xt+t^2)\sum_{n=0}^{\infty} nP_n(x)t^{n-1}
+\end{align}
+この式の両辺の\(t\)の次数について整理する。
+\begin{equation}\begin{aligned}[b]
+    0 & = (1-2xt+t^2)\sum_{n=0}^{\infty} nP_n(x)t^{n-1} +(t-x)\sum_{n=0}^{\infty} P_n(x) t^n \\
+	  & = \sum_{m=0}^{\infty} mP_m(x)t^{m-1}
+	- \sum_{n=0}^{\infty}(2n+1)xP_n(x)t^n
+	+ \sum_{s=0}^{\infty} (s+1)P_s(x)t^{s+1}                                                 \\
+	  & = \underset{=0}{\underline{P_1(x) -xP_0(x)}}+
+	\sum_{n=1}^{\infty} \Bigl\{
+	(n+1)P_{n+1}(x) - (2n+1)xP_x(x) + nP_{n-1}(x)
+	\Bigr\}t^n
+\end{aligned}\end{equation}
+これより漸化式
+\begin{align}
+	P_{n+1}(x) & = \frac{2n+1}{n+1}xP_n(x)-\frac{n}{n+1}P_{n-1}(x) \label{eq:legendre_recurrece1} \\
+	           & = 2xP_n(x)-P_{n-1} -\frac{xP_n(x)-P_{n-1}}{n+1}
+\end{align}
+が得られる。
+最後の行は数値計算の際に使われる、丸め誤差を抑えた形である。
+
+\begin{table}[htb]
+	\centering
+	\caption{ルジャンドル多項式を\(n=6\)まで求めたもの。}
+	\begin{tabular}{cl}
+		\hline
+		次数\(n\) & ルジャンドル多項式\(P_n(x)\)                                   \\
+		\hline \hline
+		\(n=0\) & \(P_0(x)= 1\)                                         \\
+		\(n=1\) & \(P_1(x)= x\)                                         \\
+		\(n=2\) & \(P_2(x)= \dfrac{1}{2}\qty(3x^2-1)\)
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
+		\(n=3\) & \(P_3(x)= \dfrac{1}{2}\qty(5x^2-3x)\)
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
+		\(n=4\) & \(P_4(x)= \dfrac{1}{8}\qty(35x^4-30x^2+3)\)
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
+		\(n=5\) & \(P_5(x)= \dfrac{1}{8}\qty(63x^4-70x^2+15x)\)
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
+		\(n=6\) & \(P_6(x)= \dfrac{1}{16}\qty(231x^6-315x^4+105x^2-5)\)
+		\rule[-4.5mm]{0mm}{9mm}                                         \\
+		\hline
+	\end{tabular}
+\end{table}
+% TODO グラフのプロット。
+
+\subsection{微分方程式}
+母関数\(g(t,\,x)\)を\(t\)で微分すると計算機で数値計算するときに便利な漸化式が得られた。
+\(x\)で偏微分すると何が得られるだろうか。
+それはルジャンドル多項式が解となる微分方程式である。
+正直ここは式をこねくりまわしているだけではあるので、
+この節は結果だけ飲み込んでおくというのもありではある。
+結果は節の最後らへんに記述している。
+
+では\(x\)で偏微分していこう。
+
+\begin{align}
+	\pdv{g(t,\,x)}{x} = \frac{t}{(1-2xt+t^2)^{3/2}} & = \sum_{n=0}^{\infty} P_n'(x) t^n            \\
+	t\sum_{n=0}^{\infty} P_n(x) t^n                 & = (1-2xt+t^2)\sum_{n=0}^{\infty} P_n'(x) t^n
+\end{align}
+これを\(t\)の次数について整理する。
+\begin{equation}\begin{aligned}[b]
+    0 & = \sum_{n=0}^{\infty} P_n'(x)t^n - \sum_{n=0}^{\infty} \Bigl\{2xP_n'(x)+P_n(x)\Bigr\}t^{n+1} + \sum_{n=0}^{\infty}P_n'(x) t^{n+2} \\
+	  & = \underset{=0}{\underline{P_0'(x)}}
+	+\underset{=0}{\underline{\Bigl\{P_1'(x)-2xP_0'(x)-P_0(x)\Bigr\}}}t
+	+\sum_{n=0}^{\infty}\Bigl\{P_{n-2}'(x)-2xP_{n-1}'(x)-P_{n-1}(x) +P_n'(x) \Bigr\}t^{n+2}.
+\end{aligned}\end{equation}
+これより
+\begin{equation}
+	P_{n+1}'(x)+P_{n-1}'(x) = 2xP_n'(x) + P_n(x) \label{eq:legendre_recurrece2}
+\end{equation}
+次数の違うルジャンドル多項式が混じっているのでこれを整理していこう。
+(\ref{eq:legendre_recurrece1})式より
+\begin{equation}
+	P_{n+1}'(x) = \frac{2n+1}{n+1}P_n(x)+\frac{2n+1}{n+1}xP_n'(x) - \frac{n}{n+1}P_{n-1}'(x)
+\end{equation}
+この2式を組み合わせて\(P_n'(x)\)を消去すると
+\begin{equation}
+	P_{n+1}'(x)-P_{n-1}'(x) = (2n+1) P_n(x) \label{eq:legendre_recurrece3}
+\end{equation}
+(\ref{eq:legendre_recurrece2})式と(\ref{eq:legendre_recurrece3})式を組み合わせることで
+二項間漸化式
+\begin{align}
+	P_{n+1}'(x) & = (n+1)P_n(x) + xP_n(x)\label{eq:legendre_recurrece4} \\
+	P_{n-1}'(x) & = -nP_n(x)+xP_n'(x)\label{eq:legendre_recurrece5}
+\end{align}
+が得られる。
+(\ref{eq:legendre_recurrece4})式の\(n\)を\(n-1\)にしたものと、
+(\ref{eq:legendre_recurrece5})式に\(x\) をかけたものを組み合わせると
+\begin{equation}
+	(1-x^2)P_n'(x)= nP_{n-1}(x)-nxP_n(x)
+\end{equation}
+が得られる。
+そしてこの式の両辺を\(x\)で微分したものと
+(\ref{eq:legendre_recurrece5})式に\(n\)をかけたものを組み合わせると
+\begin{equation}
+	(1-x^2)P_n''(x)-2xP_n'(x)+n(n+1)P_n(x) = 0 \label{eq:legendre_dif_eq1}
+\end{equation}
+という微分方程式が出てくる。
+この節を飛ばそうとしていた方はこの式と次の式を抑えておこう。
+
+もともと考えていたポアソン方程式では\(x=\cos\theta\)のことであったのでこれで書き直すと
+\begin{equation}
+	\frac{1}{\sin\theta}\dv{\theta}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) + n(n+1)P_n(\cos\theta) =0 \label{eq:legendre_dif_eq2}
+\end{equation}
+となる。この式は球面調和関数のところでまた出会うだろう。
+また、この式は固有値方程式
+\begin{equation}
+	-\frac{1}{\sin\theta}\dv{\theta}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) = n(n+1)P_n(\cos\theta) =0
+\end{equation}
+とみなせる。
+つまり、左のような微分演算子がかかったときの固有値は0以上の整数
+\(n\)を用いて\(n(n+1)\)という形になる。
+
+\subsection{ルジャンドル多項式のパリティ}
+ポアソン方程式の解の空間反転のパリティを見たい時がある。
+そのためルジャンドル多項式の空間反転に対するパリティを確認する。
+ルジャンドル多項式の母関数は
+\begin{equation}
+	g(t,\,x) = \frac{1}{\sqrt{1-2xt + t^2}} = \sum_{n=0}^{\infty}P_n(x)t^n
+\end{equation}
+これをみると\(g(t,\,-x)=g(-t,\,x)\)とわかるので
+\begin{align}
+	\sum_{n=0}^{\infty} P_n(-x)t^n & = \sum_{n=0}^{\infty} (-1)^n P_n(x)t^n \\
+	P_n(-x)                        & = (-1)^n P_n(x).
+\end{align}
+ルジャンドル多項式のパリティがわかった。
+
+\subsection{ロドリゲスの公式}
+ルジャンドル多項式はこのように変換できる
+\begin{equation}\begin{aligned}[b]
+    P_n(x) & = \sum_{k=0}^{\lfloor n/2 \rfloor}(-1)^k \frac{(2n-2k)!}{2^n k!(n-k)!(n-2k)!}x^{n-2k}                \\
+	       & =\frac{1}{2^n n!}\sum_{k=0}^{\lfloor n/2 \rfloor}(-1)^k \frac{n!}{k!(n-k)!}\qty(\dv{x})^nx^{2n-2k}   \\
+	       & =\frac{1}{2^n n!}\qty(\dv{x})^n\sum_{k=0}^{\lfloor n/2 \rfloor} \frac{n!}{k!(n-k)!}(x^2)^{n-k}(-1)^k
+\end{aligned}\end{equation}
+ここで\(\lfloor n/2 \rfloor + 1 \leq k \leq k\) では
+\begin{equation}
+	\qty(\dv{x})^n x^{2n-2k} =0
+\end{equation}
+となることに注意すると和の範囲を広げることができて、
+\begin{equation}\begin{aligned}[b]
+    P_n(x) & = \frac{1}{2^n n!}\qty(\dv{x})^n\sum_{k=0}^{n} \frac{n!}{k!(n-k)!}(x^2)^{n-k}(-1)^k \\
+	       & = \frac{1}{2^n n!}\qty(\dv{x})^n(x^2-1)^n
+\end{aligned}\end{equation}
+とできる。これをロドリゲスの公式という。
+
+\subsection{直交性}
+ルジャンドル多項式は\([-1, 1]\)区間を定義域に持つ関数に関して正規直交基底をなすという性質がある。
+これを使った数値積分のアルゴリズムがある等ルジャンドル多項式の良い性質の1つとなっている。
+この性質を完全に証明することはしないが、
+\begin{equation}
+	\int_{-1}^{1} P_m(x) P_n(x) dx = \frac{2}{2n+1}\delta_{mn}
+\end{equation}
+という直交性と、
+ルジャンドル多項式を基底としたときの関数は
+\begin{align}
+	f(x) & = \sum_{n=0}^{\infty} \frac{2n+1}{2}a_n P_n(x) \\
+	a_n  & =\int_{-1}^{1}f(t)P_n(t) dt
+\end{align}
+と展開できることを示す。
+
+\(m\leq n\)としても一般性を失わない。
+ロドリゲスの公式を代入して部分積分を繰り返していく。
+\begin{equation}\begin{aligned}[b]
+    & \int_{-1}^{1} P_m(x) \frac{1}{2^n n!} \qty(\dv{x})^n (x^2-1)^n dx \\
+	 & \qquad = \frac{1}{2^n n!}
+	\qty(
+	\underset{=0}{\underline{
+			\qty[P_n(x)\dv[n-1]{x}(x^2-1)^{n-1}]_{-1}^{1}
+		}}
+	- \int_{-1}^{1}P_m'(x)\dv[n-1]{x}(x^2-1)^n dx
+	)                                                                           \\
+	 & \qquad=-\frac{1}{2^n n!}\int_{-1}^{1}P_m'(x)\dv[n-1]{x}(x^2-1)^n dx      \\
+	 & \qquad=\frac{(-1)^n}{2^n n!}\int_{-1}^{1} P_m^{(n)}(x)(1-x^2)^n dx
+\end{aligned}\end{equation}
+\(P_m(x)\)は\(m\)次の多項式である。そのため\(m<n\)のときには\(P_m^{(n)}(x)=0\)である。
+\(m=n\)のときにはルジャンドル多項式の級数表示により
+\begin{equation}
+	P_n^{(n)}(x) = \frac{(2n)!}{2^n (n!)^2}\times n! = \frac{(2n)!}{2^n n!}
+\end{equation}
+となる。よって
+\begin{equation}
+	\int_{-1}^{1} P_m(x) P_n(x) dx
+	= \frac{\delta_{mn}(2n)!}{(2n)!!}\int_{-1}^{1} (1-x^2)^n dx
+\end{equation}
+後の積分を求める。\(x=\sin\theta\)と変数変換してウォリスの公式を使うと
+\begin{equation}
+	\int_{-1}^{1} (1-x^2)^n dx
+	= \int_{-\pi}^{\pi} \cos^{2n+1} \theta d\theta
+	= 2 \times \frac{(2n)!!}{(2n+1)!!} = 2 \times \frac{(2n)!!}{(2n+1)!}.
+\end{equation}
+以上より
+\begin{equation}
+	\int_{-1}^{1} P_m(x) P_n(x) dx = \frac{2}{2n+1}\delta_{mn}
+\end{equation}
+という直交性を示せた。
+
+ルジャンドル多項式式で関数\(f(x)\)が
+\begin{equation}
+	f(x) = \sum_{n=0}^{\infty} a_n P_n(x)
+\end{equation}
+のように展開する。
+ルジャンドル多項式の直交性により
+\begin{equation}\begin{aligned}[b]
+    \int_{-1}^{1}f(x) P_m(x) & = \sum_{n=0}^{\infty} a_n \int_{-1}^{1} P_n(x) P_m(x) \\
+	                         & = \frac{2a_m}{2m+1}
+\end{aligned}\end{equation}
+となるので
+定義域が\([-1,\,1]\)の関数\(f(x)\)は
+\begin{align}
+	f(x) & = \sum_{n=0}^{\infty} \frac{2n+1}{2}a_n P_n(x) \\
+	a_n  & =\int_{-1}^{1}f(t)P_n(t) dt
+\end{align}
+というように展開できる。
+
+\section{球面調和関数}
+ポアソン方程式の解としてグリーン関数経由でルジャンドル多項式の存在を確かめた。
+ではそんな回りくどいことをせず直接微分方程式を解くことで得られないかを考えてみよう。
+
+まず初めに3次元極座標のラプラシアンの導出をしよう。
+微分幾何によるとラプラシアンは空間の計量テンソルを\(g_{ij}\)として
+\begin{equation}
+	\laplacian = \frac{1}{\sqrt{\det g_{ij}}}\partial_i \sqrt{\det g_{ij}}\partial^i
+\end{equation}
+となる。3次元極座標では
+\begin{equation}
+	g_{ij} = \text{diag}(1,\,r^2,\,r^2\sin^2\theta)
+\end{equation}
+よりラプラシアンは
+\begin{equation}\begin{aligned}[b]
+    \laplacian & = \frac{1}{r^2\sin\theta}\qty{
+		\pdv{r}\qty(r^2\sin\theta\pdv{r})
+		+\pdv{\theta}\qty(r^2\sin\theta \frac{1}{r^2}\pdv{\theta})
+		+\pdv{\varphi}\qty(r^2\sin\theta \frac{1}{r^2\sin^2\theta}\pdv{\varphi})
+	}                                                   \\
+	           & = \frac{1}{r^2}\pdv{r}\qty(r^2\pdv{r})
+	+ \frac{1}{r^2\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta})
+	+ \frac{1}{r^2\sin^2\theta}\pdv[2]{\varphi}
+\end{aligned}\end{equation}
+となる。
+これよりポアソン方程式は次のように書ける。
+\begin{equation}
+	\qty[\frac{1}{r^2}\pdv{r}\qty(r^2\pdv{r})
+		+ \frac{1}{r^2\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta})
+		+ \frac{1}{r^2\sin^2\theta}\pdv[2]{\varphi}] \phi(r,\,\theta,\,\varphi)
+	= -\frac{\rho(\vb*{r})}{\varepsilon_0}
+\end{equation}
+
+一般解を求めることを考えるため\(\rho(\vb*{r})=0\)とする。
+この偏微分方程式は
+\begin{equation}
+	\phi(r,\,\theta,\,\varphi) = \frac{R(r)}{r}Y(\theta,\,\varphi)
+\end{equation}
+というように変数分離できる。
+これを元のポアソン方程式に入れていって整理すると
+\begin{equation}
+	\frac{r}{R(r)}\dv[2]{R(r)}{r}
+	= -\frac{1}{Y(\theta,\,\varphi)}\qty{
+		+\frac{1}{\sin\theta}\pdv{\theta}
+		\qty(\sin\theta\pdv{\theta})
+		+ \frac{1}{\sin^2\theta}\pdv[2]{\varphi}}Y(\theta,\,\varphi)
+\end{equation}
+右辺と左辺の関数の引数は独立なのでこの等号が成り立つためには定数でなければならない。
+よって
+\begin{align}
+	\lambda_1 & =-\frac{r}{R(r)}\dv[2]{R(r)}{r} \\
+	\lambda_1 & = \frac{1}{Y(\theta,\,\varphi)}
+	\qty{
+		\frac{1}{\sin\theta}\pdv{\theta}
+		\qty(\sin\theta\pdv{\theta})
+		+ \frac{1}{\sin^2\theta}\pdv[2]{\varphi}}Y(\theta,\,\varphi)
+\end{align}
+というよう動径方向と角度方向に分けることができた。
+
+次に角度方向だけに注目しよう。
+同じように
+\begin{equation}
+	Y(\theta,\,\varphi) = \Theta(\theta)\Phi(\varphi)
+\end{equation}
+というように変数分離して整理すると
+\begin{equation}
+	\frac{\sin\theta}{\Theta}\dv{\theta}\qty(\sin\theta\dv{\Theta}{\theta}) + \lambda_1 \sin^2\theta
+	= -\frac{1}{\Phi}\dv[2]{\Phi}{\phi}
+\end{equation}
+またこの等式が成り立つことから分離定数を\(\lambda_2\)とおいて整理すると
+\begin{align}
+	\dv[2]{\Phi}{\varphi} + \lambda_2 \Phi                               & =0                                                       \\
+	\frac{1}{\sin\theta}\dv{\theta} \qty(\sin\theta\pdv{\Theta}{\theta}) & + \qty(\lambda_1-\frac{\lambda_2}{\sin^2\theta})\Theta=0
+\end{align}
+方位角については
+解は
+\begin{equation}
+	\Phi = e^{i\sqrt{\lambda_2}\varphi},\,e^{-i\sqrt{\lambda_2}\varphi}
+\end{equation}
+となる。
+これは減衰する解ではなく周期解になっている。
+また関数の一価性により\(\sqrt{\lambda_2}\)は整数である必要がある。
+そこで改めて\(m^2 = \lambda_2\)とおく。
+またこれは
+\begin{equation}
+	\int_{0}^{2\pi} (e^{im_1\varphi})^* e^{im_2\varphi} d\varphi = 2\pi\delta_{m_1 m_2}
+\end{equation}
+というように直交している。
+規格直交にしたいので方位角方向の解は
+\begin{equation}
+	\Phi_m = \frac{1}{\sqrt{2\pi}} e^{im\varphi}
+\end{equation}
+というようにおく。
+
+天頂角についての方程式を考える。
+方位角での結果を使うと
+\begin{equation}
+	\frac{1}{\sin\theta}\dv{\theta} \qty(\sin\theta\pdv{\Theta}{\theta}) + \qty(\lambda_1-\frac{m^2}{\sin^2\theta})\Theta=0
+	\label{eq:legendre_poly_dif_eq}
+\end{equation}
+この式は\(m=0\)としてやればルジャンドル多項式の満たすべき固有値
+\begin{equation}
+	\frac{1}{\sin\theta}\dv{t}\qty(\sin\theta\dv{\theta}P_n(\cos\theta)) + n(n+1)P_n(\cos\theta) =0
+	\tag*{(\ref{eq:legendre_dif_eq2})再掲}
+\end{equation}
+と同じ形になっている。
+これより\(\lambda_1=l(l+1),\,(l\geq 0)\)というように置きなおすとよいことがわかる。
+この\(l\)を軌道量子数という。
+\(m=0\)ということは、解に方位角の依存性を落としたものに相当している。
+なのでルジャンドル多項式はポアソン方程式の一般解の一部になっていることがわかる。
+ということは、ルジャンドル多項式は拡張できることが示唆される。
+そうして拡張されたルジャンドル多項式をルジャンドル陪多項式という。
+
+\subsection{ルジャンドル陪多項式と角運動量代数}
+ルジャンドル多項式からルジャンドル陪多項式へと拡張する際、
+微分方程式を解くというアプローチがあるが、これは何をやっているかわからなくなりがちである。
+
+そこで量子力学の手助けを借りよう。
+量子力学の角運動量における代数的な操作により、(\ref{eq:legendre_poly_dif_eq})式の解の持つ性質やその関数形がわかる。
+今考えている微分方程式は量子力学の言葉で言うと、
+角運動量の2乗の大きさの演算子\(\hat{\vb*{L}}^2\)に関する固有値方程式になっている。
+実際、角運動量は
+\begin{align}
+	\hat{\vb*{L}}  = \hat{\vb*{r}} \times \hat{\vb*{p}}
+	               = r\vb*{e}_r \times \qty(-i\nabla)
+	               =-i\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi})
+\end{align}
+であり\footnote{\(\hbar=1\)としている}、基底の微分も考慮しなければならないことを注意しながら次の量を計算すると
+\begin{equation}\begin{aligned}[b]
+    \hat{\vb*{L}}^2 & = -\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi})\cdot\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \\
+	                & = -\qty{\frac{1}{\sin\theta}\pdv{\theta}\qty(\sin\theta\pdv{\theta})+\frac{1}{\sin^2\theta}\pdv[2]{\varphi}}
+\end{aligned}\end{equation}
+というように3次元ラプラシアンの角度成分が得られる。
+これを使うと角度方向の微分方程式は
+\begin{equation}
+	\hat{\vb*{L}}^2 Y(\theta,\,\varphi) = l(l+1) Y(\theta,\,\varphi)
+\end{equation}
+という\(l(l+1)\)の固有値を持った固有値方程式だとみなせる。
+固有値\(l(l+1),\,m\)を持った固有状態を
+\begin{equation}
+	Y_l^m(\theta,\,\varphi) = \Theta_l^m(\theta)\Phi_m(\varphi)
+\end{equation}
+というように書く。
+そしてこれは
+\begin{align}
+	\int d\Omega ,\, Y_{l}^{m*}(\theta,\,\varphi)Y_{l}^m(\theta,\,\varphi) = 1
+\end{align}
+というように規格化されているものとする。
+
+なのでいったんルジャンドル陪多項式とは何だろうかという疑問からはいったん離れて角運動量演算子の代数的性質を見ていく。
+
+
+角運動量の各成分を計算するには
+\(\hat{\vb*{L}}\)と\(\vb*{e}_x,\,\vb*{e}_y,\,\vb*{e}_z\)の内積をとればよい。
+すると
+\begin{align}
+	\hat{L}_x
+	 & = -i(\sin\theta\cos\varphi \vb*{e}_r + \cos\theta\cos\varphi \vb*{e}_\theta - \sin\theta \vb*{e}_\varphi) \cdot
+	\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \notag                       \\
+	 & = i\qty(\cot\theta\cos\varphi\pdv{\varphi}+\sin\varphi\pdv{\theta})                                             \\
+	\hat{L}_y
+	 & = -i(\sin\theta\sin\varphi \vb*{e}_r + \cos\theta\sin\varphi \vb*{e}_\theta + \cos\theta \vb*{e}_\varphi) \cdot
+	\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \notag                       \\
+	 & = i\qty(\cot\theta\sin\varphi\pdv{\varphi}-\cos\varphi\pdv{\theta})                                             \\
+	\hat{L}_z
+	 & = -i(\cos\theta\vb*{e}_r -\sin\theta\vb*{e}_\theta) \cdot
+	\qty(\vb*{e}_{\varphi}\pdv{\theta}-\vb*{e}_{\theta}\frac{1}{\sin\theta}\pdv{\varphi}) \notag                       \\
+	 & = -i\pdv{\varphi}
+\end{align}
+となる。
+これより\(\Phi_m\)というのは\(\hat{\vb*{L}}_z\)角運動量の\(z\)成分の演算子の
+固有値\(m\)の固有状態になっていることがわかる。
+角運動量の\(z\)成分は磁場との相互作用をし、その大きさは分離定数\(m\)に比例するものから、
+\(m\)を磁気量子数という。
+これらの演算子は次の交換関係を満たす
+\begin{align}
+	\qty[\hat{\vb*{L}}_i,\,\hat{\vb*{L}}_i] & = i\epsilon_{ijk}\hat{\vb*{L}}_k \\
+	\qty[\hat{\vb*{L}}^2\,\hat{\vb*{L}}_i]  & =0.
+\end{align}
+唐突だか、この角運動量演算子を組み合わせて次の演算子を新に定義する。
+\begin{align}
+	\hat{L}_+ & = \hat{L}_x + i\hat{L}_y = e^{ i\varphi}\qty( \pdv{\theta} +i\cot\theta\pdv{\varphi}) \\
+	\hat{L}_- & = \hat{L}_x - i\hat{L}_y = e^{-i\varphi}\qty(-\pdv{\theta} +i\cot\theta\pdv{\varphi})
+\end{align}
+この後に使うのでこの演算子の持つ性質を調べていこう。
+これらの演算子はエルミート共役をとるともう一方の演算子となる。
+演算子\(\hat{A}\)のエルミート共役とは
+\begin{equation}
+	\int dx \qty(\hat{A}g(x)) f(x) = \int dx g^*(x) \hat{A}^\dag f(x)
+\end{equation}
+という関係が成り立つような演算子\(\hat{A}^\dag\)のことである。
+% 実際
+% \begin{align}
+% 	\int dx \qty(\hat{L}_+ g(x))f(x)  \\
+% 	 & = \cdots                       \\
+% 	 & =\int dx g^*(x) \hat{L}_- f(x)
+% \end{align}
+% となる。 % TODO ちゃんと書く。
+また
+\begin{equation}\begin{aligned}[b]
+    \hat{L}_- \hat{L}_+ & = \qty(\hat{L}_x - i \hat{L}_y)\qty(\hat{L}_x + i\hat{L}_y)                         \\
+	                    & =\hat{L}_x^2+\hat{L}_y^2 + \hat{L}_z^2 - \hat{L}_z^2 + i\qty[\hat{L}_x,\,\hat{L}_y] \\
+	                    & =\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z
+\end{aligned}\end{equation}
+という関係も成り立っていることがわかる。
+
+このこの演算子と\(\hat{L}_z\)との交換関係を調べてみると
+\begin{equation}
+	\qty[\hat{L}_z,\,\hat{L}_\pm] = \pm \hat{L}_\pm
+\end{equation}
+というのが成り立っている。\footnote{これは微分演算子の交換関係を直接用いるのではなく、
+	\([\hat{L}_i,\,\hat{L}_j]=\varepsilon_{ijk}\hat{L}_k\)を使って計算するとよい。}
+これを使ってやると次のような変形ができる。
+\begin{equation}\begin{aligned}[b]
+    \hat{L}_z\hat{L}_+ \Phi_m
+	 & = \qty(\hat{L}_+\hat{L}_z + \hat{L}_+)\Phi_m \\
+	 & = (m+1)\hat{L}_+\Phi_m.
+\end{aligned}\end{equation}
+この式は何を意味しているかというと
+\begin{equation}
+	\hat{L}_+ \Phi_m = a \Phi_{m+1}
+\end{equation}
+というように\(\hat{L}_+\)は磁気量子数を1つ増やす演算子になっていることである(\(a\)は比例定数)。
+同様に\(\hat{L}_-\)ついても計算していくと
+\begin{equation}
+	\hat{L}_- e^{im\varphi} =b e^{i(m-1)\varphi}.
+\end{equation}
+これより\(\hat{L}_-\)は磁気量子数を1つ減らす演算子とわかる。
+なので\(\hat{L}_+,\,\hat{L}_-\)という演算子を昇降演算子と呼ぶ。
+
+では比例定数を求めてみよう。
+\begin{equation}\begin{aligned}[b]
+    \int d\Omega\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))^\dagger
+	\qty(\hat{L}_+ Y_{l}^m(\theta,\,\varphi))
+	          & = \int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\hat{L}_-\hat{L}_+Y_{l}^m(\theta,\,\varphi)                           \\
+	\abs{a}^2 & =\int d\Omega\, Y_{l}^{m*}(\theta,\,\varphi)\qty(\hat{\vb*{L}}^2 -\hat{L}_z^2 -\hat{L}_z)Y_{l}^m(\theta,\,\varphi) \\
+	          & =(l-m)(l+m+1)
+\end{aligned}\end{equation}
+となるので
+\begin{align}
+	a                                & = \sqrt{(l-m)(l+m+1)}                            \\
+	\hat{L}_+Y_l^m(\theta,\,\varphi) & = \sqrt{(l-m)(l+m+1)}Y_l^{m+1}(\theta,\,\varphi)
+\end{align}
+となる。これより\(m\leq l\) がわかる。
+また同様に考えていくと
+\begin{align}
+	b                                & = \sqrt{(l+m)(l-m+1)}                                      \\
+	\hat{L}_-Y_l^m(\theta,\,\varphi) & = \sqrt{(l+m)(l-m+1)}Y_{\lambda_1}^{m-1}(\theta,\,\varphi)
+\end{align}
+となる。これより\(-l\leq m\) がわかる。
+2つの結果をまとめると\(-l \leq m \leq m\)というのが\(m\)のとる条件である。
+これで量子力学パートは終了だ。
+
+\subsection{球面調和関数と昇降演算子}
+もとの解きたい微分方程式は
+\begin{equation}
+	\qty[\frac{1}{\sin\theta}\dv{\theta} \qty(\sin\theta\pdv{\theta}) + \qty(l(l+1)-\frac{m^2}{\sin^2\theta})]\Theta_{\lambda_1}^m=0
+	\tag{\ref{eq:legendre_poly_dif_eq} 再掲}
+\end{equation}
+であった。
+このとき\(m=0\)としたときの解がルジャンドル多項式と同じであった。
+規格化定数を\(a\)とすると
+\begin{equation}
+	\Theta_{l}^0(\theta) = aP_l(\cos\theta)
+\end{equation}
+である。
+規格化定数は
+\begin{align}
+	1
+	= \int_{0}^{\theta} \Bigl\{aP_l(\cos\theta)\Bigr\}^* \Bigl\{aP_1(\cos\theta)\Bigr\} \sin\theta d\theta
+	= \abs{a}^2 \int_{-1}^{1} P_l^2(x) dx
+	= \abs{a}^2 \frac{2}{2l+1}
+\end{align}
+より
+\begin{align}
+	a                  & = \sqrt{\frac{2l+1}{2}}                \\
+	\Theta_l^0(\theta) & = \sqrt{\frac{2l+1}{2}}P_l(\cos\theta)
+\end{align}
+となる。
+なので
+\begin{equation}
+	Y_l^0(\theta,\,\varphi) = \sqrt{\frac{2l+1}{2}}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{i0\varphi}
+\end{equation}
+\(0\)だった磁気量子数を上昇演算子に作用させていこう。
+\begin{equation}\begin{aligned}[b]
+    Y_l^1(\theta,\varphi)
+	 & = \frac{1}{\sqrt{(l-0)(l+0+1)}}\qty{e^{i\varphi}\qty(\pdv{\theta}+i\cot\theta\pdv{\varphi})}\sqrt{\frac{2l+1}{2}}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}} \\
+	 & =	\frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{i\phi}
+\end{aligned}\end{equation}
+\begin{equation}\begin{aligned}[b]
+    Y_l^2(\theta,\varphi)
+	 & =\frac{1}{\sqrt{(l-1)(l+1+1)}}\qty{e^{i\varphi}\qty(\pdv{\theta}+i\cot\theta\pdv{\varphi})}\frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{i\phi} \\
+	 & =\frac{1}{\sqrt{l(l-1)(l+1)(l+2)}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-\cot\theta)\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{2i\phi}
+\end{aligned}\end{equation}
+\begin{equation}\begin{aligned}[b]
+    Y_l^3(\theta,\,\varphi)
+	 & =\sqrt{\frac{l!}{(l+3)!}\frac{(l-3)!}{l!}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-2\cot\theta)\qty(\pdv{\theta}-\cot\theta)\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{3i\phi}
+\end{aligned}\end{equation}
+\begin{equation}\begin{aligned}[b]
+    Y_l^m(\theta,\,\varphi)
+	 & =\sqrt{\frac{l!}{(l+m)!}\frac{(l-m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{m-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}                    \\
+	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}            \\
+	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{-\sin^{k+1}\theta\qty(\pdv{(\cos\theta)}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{im\varphi} \\
+	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \sin^{m}\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\times\frac{1}{\sqrt{2\pi}}e^{im\varphi}
+\end{aligned}\end{equation}
+となる。
+また同様に\(P_l(\cos\theta)\)に下降演算子を作用させていこう。
+\begin{equation}\begin{aligned}[b]
+    Y_l^{-1}(\theta,\varphi)
+	 & = \frac{1}{\sqrt{(l+0)(l-0+1)}}\qty{e^{-i\varphi}\qty(-\pdv{\theta}+i\cot\theta\pdv{\varphi})}\sqrt{\frac{2l+1}{2}}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}} \\
+	 & =	-\frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-i\phi}
+\end{aligned}\end{equation}
+\begin{equation}\begin{aligned}[b]
+    Y_l^{-2}(\theta,\varphi)
+	 & =-\frac{1}{\sqrt{(l+2)(l-2+1)}}\qty{e^{-i\varphi}\qty(-\pdv{\theta}+i\cot\theta\pdv{\varphi})}\sqrt{l(l+1)}\sqrt{\frac{2l+1}{2}}\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-i\phi} \\
+	 & =\frac{1}{\sqrt{l(l-1)(l+1)(l+2)}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-\cot\theta)\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-2i\phi}
+\end{aligned}\end{equation}
+\begin{equation}\begin{aligned}[b]
+    Y_l^{-3}(\theta,\,\varphi)
+	 & =-\sqrt{\frac{l!}{(l+3)!}\frac{(l-3)!}{l!}}\sqrt{\frac{2l+1}{2}}\qty(\pdv{\theta}-2\cot\theta)\qty(\pdv{\theta}-\cot\theta\pdv{\theta})\pdv{\theta}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-3i\phi}
+\end{aligned}\end{equation}
+\begin{equation}\begin{aligned}[b]
+    Y_l^{-m}(\theta,\,\varphi)
+	 & =(-1)^m\sqrt{\frac{l!}{(l+m)!}\frac{(l-m)!}{l!}}\sqrt{\frac{2l+1}{2}} \prod_{k=0}^{k-1}\qty(\pdv{\theta}-k\cot\theta)P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}                    \\
+	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{\sin^k\theta\qty(\pdv{\theta}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}            \\
+	 & =(-1)^m\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \prod_{k=0}^{m-1}\qty{-\sin^{k+1}\theta\qty(\pdv{(\cos\theta)}\frac{1}{\sin^k\theta})}P_l(\cos\theta)\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi} \\
+	 & =\sqrt{\frac{2l+1}{2}\frac{(l-m)!}{(l+m)!}} \sin^{m}\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\times\frac{1}{\sqrt{2\pi}}e^{-im\varphi}
+\end{aligned}\end{equation}
+となる。
+% TODO Y の位置を左で揃えたい。
+よって変数分離して得られた天頂角成分の固有関数は
+\begin{equation}
+	\Theta_l^m(\theta) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{2}\frac{(l-\abs{m})!}{(l+\abs{m})!}} \sin^{\abs{m}}\theta\pdv[\abs{m}]{P_l(\cos\theta)}{(\cos\theta)}
+\end{equation}
+となる。
+この式の形を決めている部分を\(x=\cos\theta\)として
+\begin{align}
+	P_l^m(\cos\theta) &= \sin^m\theta\pdv[m]{P_l(\cos\theta)}{(\cos\theta)}\\
+	P_l^m(x) &=(1-x^2)^{m/2}\dv[m]{P_l(x)}{x}
+\end{align}
+とやる。これがルジャンドル陪多項式である。
+\(m\)が負のとき、微分がよくわからなくなるように見える。
+これはロドリゲスの公式をつかってルジャンドル多項式を展開してあげると意味のある式になっていることがわかる。
+天頂角成分の解は
+\begin{equation}
+	\Theta_l^m(\theta) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{2}\frac{(l-\abs{m})!}{(l+\abs{m})!}} P_l^{m}(\cos\theta)
+\end{equation}
+となる。
+以上よりポアソン方程式の一般解のうち角度成分の関数形がわかった。
+それを書くと、
+\begin{equation}
+	Y_l^m(\theta,\,\varphi) = (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^{m}(\cos\theta)e^{im\varphi}
+\end{equation}
+というようになる。これが球面調和関数と呼ばれるものである。
+
+\subsection{球面調和関数の関数形の覚え方・導出の仕方}
+多極子を扱う上で球面調和関数の形や関数形は覚えておくとよい。
+おそらくf電子系までの多極子であるため\(l=4\)まで覚えた方がよいのだろう。
+球面調和関数の形を覚える・導出するうえで便利な関係式をまとめる。
+
+まず初めに、\(m=l\)の状態を考える。
+これは上昇演算子を作用させたときに\(0\)となる関数であるので、
+\begin{equation}
+	e^{i\varphi}\qty(\pdv{\theta}+i\cot\theta\pdv{\varphi})Y_l^l(\theta,\varphi)=0.
+\end{equation}
+球面調和関数に\(\partial_\varphi\)を作用させると\(im\)が下りてくるので、
+\begin{equation}\begin{aligned}[b]
+    \qty(\pdv{\theta} - \cot\theta) Y_l^l(\theta,\,\varphi) = 0 \\
+	\sin^l\theta\pdv{\theta}\qty(\frac{1}{\sin^l \theta}Y_l^l(\theta,\,\varphi))=0
+\end{aligned}\end{equation}
+これより
+\begin{equation}
+	Y_l^l =a \sin^l\theta\, e^{il\varphi}
+\end{equation}
+とわかる。
+規格化定数\(a\)を求める。
+ちょっと考えると規格化の積分の式は次のようになる。
+\begin{equation}\begin{aligned}[b]
+    1 & = \abs{a}^2 \int_{0}^{\pi} d\theta \sin^{2l+1}\theta \int_{0}^{2\pi} d\varphi              \\
+	  & = 4\pi \abs{a}^2 \int_{0}^{\pi} \cos^{2l+1}\theta d\theta                                 \\
+	a & = \sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+\end{aligned}\end{equation}
+とわかる。
+最後の行へはウォリスの公式を使った。
+というようにして\(-1\)の分の位相も考慮して
+\begin{equation}
+	Y_l^l(\theta,\,\varphi)
+	= (-1)^l\sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+	\sin^l \theta \, e^{il\varphi}
+\end{equation}
+だとわかる。
+また磁気量子数を\(-m\)へとしたものは元の球面調和関数を見てやると
+\begin{equation}
+	Y_l^{-m}(\theta,\,\varphi) = (-1)^l Y_l^{m*}(\theta,\,\varphi)
+	= \sqrt{\frac{2l}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^m(\cos\theta)e^{-im\varphi}
+\end{equation}
+だとわかる。
+つまり方位角のところを\(-m\)にして、天頂角はそのまま、
+規格化定数は\((-1)^m\)を無視してやればよい。
+
+つぎに\(m=l-1\)をやってみる。
+これは下降演算子を作用させればよい。
+下降演算子が効くところだけ抜き出すと
+\begin{equation}\begin{aligned}[b]
+    & \frac{1}{\sqrt{(l+l)(l-l+1)}}e^{-i\varphi}\qty(-\pdv{\theta}-\cot\theta\pdv{\varphi})\sin^l\theta \, e^{il\varphi}\\
+	&\quad =\frac{-1}{\sqrt{2l}}\qty(l\cos\theta\sin^{l-1}+l\frac{\cos\theta}{\sin\theta}\sin^l\theta)1e^{i(l-1)\varphi} \\
+	&\quad =-\sqrt{2l}\cos\theta\sin^{l-1}\theta\,e^{i(l-1)\varphi}.
+\end{aligned}\end{equation}
+つまり\(\sin^l\theta\rightarrow(-\sqrt{2l}\cos\theta)\sin^{l-1}\theta\)というように、
+\(\sin\)の\(l\)を1つ減らして、かわりに\(-\sqrt{2l}\cos\theta\)を付け加えればよいことがわかる。
+よって
+\begin{equation}
+	Y_{l}^{l-1}(\theta,\,\varphi)=(-1)^l
+	\sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+	\underline{\qty(-\sqrt{2l}\cos\theta)\sin^{l-1}\theta} \, e^{i(l-1)\varphi}
+\end{equation}
+さらに下げていこう。
+これまた下降演算子が効くところだけ抜き出して、
+\begin{equation}\begin{aligned}[b]
+    & \frac{-\sqrt{2l}}{\sqrt{(l+(l-1))(l-(l-1)+1)}}e^{-i\varphi}\qty(-\pdv{\theta} + i\cot\theta\pdv{\varphi})\cos\theta\sin^{l-1}\theta,\,e^{i(l-1)\varphi}  \\
+	 & \quad=\frac{1}{\sqrt{2l-1}}
+	\qty{\cos\theta\qty(\pdv{\theta}\sin^{l-1}\theta)
+	-\sin^{l-1}\theta\qty(\sin\theta\pdv{(\cos\theta)}\cos\theta) + (l-1)\cot\theta\cos\theta\sin^{l-1}\theta}e^{i(l-2)\varphi}                                       \\
+	 & \quad=\frac{1}{\sqrt{2l-1}}\sin^{l-2}\theta\Bigr\{(2l-1)\cos^2\theta-1\Bigl\}e^{i(l-2)\varphi}
+\end{aligned}\end{equation}
+つまり、\(Y_l^l(\theta,\,\varphi)\)の結果を\(\sin\)の\(l\)を2つ減らして、
+代わりに\(\qty{(2l-1)\cos^2\theta-1}/\sqrt{2l-1}\)を付け加えればよい。
+\begin{equation}
+	Y_l^{l-2}(\theta,\,\varphi)
+	= (-1)^l\sqrt{\frac{1}{4\pi}\times\frac{(2l+1)(2l-1)\cdots 3\cdot 1}{2l(2l-2) \cdots 4\cdot 2}}
+	\underline{\frac{1}{\sqrt{2l-1}}\sin^{l-2}\theta\Bigr\{(2l-1)\cos^2\theta-1\Bigl\}} \, e^{i(l-2)\varphi}
+\end{equation}
+
+% \(Y_l^{l-3}(\theta,\,\varphi)\)についても同様に下降演算子を作用させると
+% \begin{align}
+% 	&\frac{-1}{\sqrt{2l-1}\sqrt{(l+l-2)(l-(l-2)+1)}}\qty(\pdv{\theta}+(l-2)\cot\theta)\sin^{l-2}\theta\Bigr\{(2l-1)\cos^2\theta-1\Bigl\}e^{i(l-3)\varphi}\notag\\
+% 	&\quad=\frac{-1}{\sqrt{6(l-1)(2l-1)}}\Bigg[
+% 		\Bigl\{(2l-1)\cos^2\theta-1\Bigr\}\pdv{\theta}\sin^{l-2}\theta
+% 		-\sin^{l-1}\pdv{(\cos\theta)}\Bigl\{(2l-1)\cos^2\theta-1\Bigr\}\notag\\
+% 		&\qquad+(l-2)\sin^{l-3}\theta\cos\theta\Bigl\{(2l-1)\cos^2\theta-1\Bigr\}
+% 	\Biggl]\\
+% 	&=-\sqrt{\frac{2}{3(l-1)(2l-1)}}\sin^{l-3}\theta\cos\theta\Bigl\{(2l-1)(l-1)\cos^2\theta-3l+1\Bigr\}
+% \end{align}
+
+そして
+\(Y_l^0(\theta,\,\varphi)\)であるが、これはルジャンドル多項式の引数を\(\cos\theta\)にしたものである。
+なのでルジャンドル多項式を\(l=4\)まで覚えよう。
+規格化因子は方位角からくる\(1/\sqrt{2\pi}\)とルジャンドル多項式の直交性からくる\(\sqrt{(2l+1)/2}\)があるので
+\begin{equation}
+	Y_l^0 = \sqrt{\frac{2l+1}{4\pi}} P_l(\cos\theta)
+\end{equation}
+である。
+\(Y_l^1(\theta,\,\varphi)\)はこれに上昇演算子を作用させるとよい。
+\(m=0\)に注意すると
+\begin{equation}
+	Y_l^1(\theta,\,\varphi) = -\frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{4\pi}}\sin\theta\pdv{P_l(\cos\theta)}{(\cos\theta)}e^{i\varphi}
+\end{equation}
+となる。
+これらの関係式とルジャンドル多項式を覚えれば\(l=4\)まではその場で計算して導出できるだろう。
+
+
+% TODO 表の作成
+\begin{table}[h]
+	\centering
+	\caption{球面調和関数の関数形を
+		\(0\leq l \leq 4\)まですべて書き下したもの。}
+	\begin{tabular}[t]{ll}
+		\hline
+		\multicolumn{2}{c}{球面調和関数\(Y_l^m(\theta,\,\varphi)\)}                                                                 \\
+		\hline \hline
+		\(Y_0^{0}(\theta,\,\varphi)=\dfrac{1}{\sqrt{4\pi}}\) &
+		\rule[-5mm]{0mm}{12mm}                                                                                                \\
+		\(Y_1^{0}(\theta,\,\varphi) =\sqrt{\dfrac{3}{4\pi}}\cos\theta\)                                &
+		\(Y_1^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{3}{8\pi}}\sin\theta \,e^{\pm i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}                                                                                                \\
+		\(Y_2^{0}(\theta,\,\varphi) =\sqrt{\dfrac{5}{16\pi}}\qty(3\cos^2\theta-1)\)                    &
+		\(Y_2^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{15}{8\pi}}\cos\theta\sin\theta \,e^{\pm i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}                                                                                                \\
+		\(Y_2^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{15}{32\pi}}\sin^2\theta \,e^{\pm 2 i\varphi}\)&
+		\rule[-5mm]{0mm}{10mm}                                                                                                \\
+		\(Y_3^0(\theta,\,\varphi) =\dfrac{1}{2}\sqrt{\dfrac{7}{4\pi}}(5\cos^3\theta-3\cos\theta)\) &
+		\(Y_3^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{21}{64\pi}}\sin\theta(5\cos^2\theta-1) e^{\pm i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_3^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{105}{32\pi}}\sin^2\theta\cos\theta \,e^{\pm 2i\varphi}\) &
+		\(Y_3^{\pm 3}(\theta,\,\varphi) =\mp\sqrt{\dfrac{35}{64\pi}}\sin^3\theta \,e^{\pm 3i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_4^0(\theta,\,\varphi) =\dfrac{1}{8}\sqrt{\dfrac{9}{4\pi}}(35\cos^4\theta-30\cos^2\theta+3)\) &
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_4^{\pm 1}(\theta,\,\varphi) =\mp\sqrt{\dfrac{45}{64\pi}}\sin\theta(7\cos^3\theta-3\cos\theta) e^{\pm 2i\varphi}\)&
+		\(Y_4^{\pm 2}(\theta,\,\varphi) =\sqrt{\dfrac{45}{64\pi}}\sin^2\theta(7\cos^2\theta-1) e^{\pm 2i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\(Y_4^{\pm 3}(\theta,\,\varphi) =\mp\sqrt{\dfrac{315}{64\pi}}\sin^3\theta\cos\theta \,e^{\pm 3i\varphi}\) &
+		\(Y_4^{\pm 4}(\theta,\,\varphi) =\sqrt{\dfrac{315}{512\pi}}\sin^4\theta \,e^{\pm 4i\varphi}\)
+		\rule[-5mm]{0mm}{10mm}\\
+		\hline
+	\end{tabular}
+	\renewcommand{\arraystretch}{1.0}
+\end{table}
+% TODO プロットの作成
+\subsection{ルジャンドル陪多項式と球面調和関数のパリティ}
+球面調和関数のパリティというのは物理的にも重要なものである。
+そのためパリティを調べていこう。
+まず初めにルジャンドル陪多項式をロドリゲスの公式を使って書くと
+\begin{equation}
+	P_l^{m}(x) = (1-x^2)^{m/2}\dv[m]{P_l(x)}{x}
+\end{equation}
+これより
+\begin{equation}
+	P_l^m(-x) = (-1)^{l+m}P_l^m(x)
+\end{equation}
+だとわかる。
+
+3次元極座標において原点に関して反転させる操作は
+\begin{equation}
+	(r,\,\theta,\,\varphi)\rightarrow (r,\,\pi-\theta,\,\varphi\pm\pi)
+\end{equation}
+で与えれられる。
+これを使ってもルジャンドル陪多項式のパリティは
+\begin{equation}\begin{aligned}[b]
+    P_l^m(\cos(\pi-\theta)) &= \sin^m(\pi-\theta)\pdv[m]{(\cos(\pi-\theta))}P_l(\cos(\pi-\theta))\\
+	P_l^m(-\cos\theta) &= (-1)^{l+m} \sin\theta\pdv[m]{(\cos\theta)}P_l(\cos\theta) =(-1)^{l+m} P_l^m(\cos\theta)
+\end{aligned}\end{equation}
+と示せる。
+また、球面調和関数のパリティは
+\begin{equation}\begin{aligned}[b]
+	Y_l^m(\pi-\theta,\,\varphi\pm\pi)
+	&=(-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^m(-\cos\theta)e^{im(\varphi\pm\pi)}\\
+	&=(-1)^{l+2m}(-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^m(\cos\theta)e^{im\varphi}\\
+	&=(-1)^lY_l^m(\theta,\,\varphi)
+\end{aligned}\end{equation}
+というようなパリティを持つ。
+
+\subsection{球面調和関数の直交性}
+球面調和関数は直交性を持っている。
+実際\(e^{im\varphi}\)の部分はフーリエ級数からもわかるように正規直交系をなしている。
+残るルジャンドル陪多項式も直交性をもつと期待され、実際に直交性を持つ。
+ルジャンドル陪多項式はルジャンドル多項式のロドリゲスの公式も組み合わせて書くと
+\begin{equation}
+	P_l^m(x) = \frac{(1-x^2)^{m/2}}{2^l l!}\dv[l+m]{x}\qty(x^2-1)^l
+\end{equation}
+である。
+\(e^{im\varphi}\)の直交性により\(P_l^m,\,P_{l'}^m\)の直交性だけ調べればよい。
+\(l\leq l'\)としても一般性を失わない。
+部分積分を繰り返して
+\begin{equation}\begin{aligned}[b]
+    \int_{-1}^{1} &P_{l'}^{m}(x)\qty{(1-x^2)^{m/2}\dv[l+m]{x}\qty(x^2-1)^l} dx \\
+	&= \frac{(-1)^{l+m}}{2^l l!}\int_{-1}^{1} \dv[l+m]{x}\Bigl\{(1-x^2)^{m/2}P_{l'}^{m}(x)\Bigr\}\qty(x^2-1)^l dx\\
+	&= \frac{(-1)^{l+m}}{2^l l!}\int_{-1}^{1} \dv[l+m]{x}\qty{(1-x^2)^{m}\dv[l'+m]{x}(x^2-1)^l}\qty(x^2-1)^l dx\\
+	&= \frac{(-1)^{l+m}}{2^{l+l'} l!l'!}\sum_{k=0}^{l+m} \frac{(l+m)!}{k!(l+m-k)!}
+	\int_{-1}^{1}\qty(\dv[l+m-k]{x}(1-x^2)^m)\qty(\dv[l'+m+k]{x}(x^2-1)^l)(x^2-1)^l dx
+\end{aligned}\end{equation}
+微分の次数に注目すると
+\begin{equation}
+	l+m-k \leq 2m,\qquad l'+m+k \leq 2l
+\end{equation}
+これより総和で生き残る\(k\)は
+\begin{equation}
+	l-m\leq k \leq 2l - l' -m
+\end{equation}
+\(l<l'\)ではそもそもこれは満たさない。
+これより\(l=l'\)でなければ個の積分の値は残らないことがわかる。
+その積分の値は\(k=l-m\)を入れて
+\begin{equation}\begin{aligned}[b]
+    \int_{-1}^{1} (P_l^m(x))^2 dx
+	&=\frac{(-1)^{l+m}}{2^{2l}l!l!}\frac{(l+m)!}{(l-m)!(2m)!}
+	\int_{-1}^{1}\qty(\dv[2m]{x}(1-x^2)^m)\qty(\dv[2l]{x}(x^2-1)^l)(x^2-1)^l dx\\
+	&=\frac{(-1)^l}{2^{2l}l!l!}\frac{(l+m)!}{(l-m)!m!}(2l)!
+	\int_{-1}^{1}(x^2-1)^l dx\\
+	&=\frac{(-1)^l}{2^{2l}l!l!}\frac{(l+m)!}{l!m!}(2l)!\frac{(-1)^l2^{2l+1}l!l!}{(2l+1)!}\\
+	&=\frac{2}{2l+1}\frac{(l+m)!}{(l-m)!}
+\end{aligned}\end{equation}
+となる。
+よって
+\begin{equation}\begin{aligned}[b]
+    \int_{0}^{\pi} &d\theta \sin\theta \int_{0}^{2\pi} Y_{l'}^{m'*}(\theta,\,\varphi) Y_l^m(\theta,\,\varphi)\\
+	&= (-1)^{m+\abs{m}}\sqrt{\frac{(2l+1)(2l'+1)}{(4\pi)^2}\frac{(l-\abs{m})!(l'-\abs{m'})!}{(l+\abs{m})!(l+\abs{m'})!}}
+	\int_{0}^{2\pi}d\varphi e^{i(m-m')\varphi} \int_{0}^{\pi} d(\cos\theta) P_{l'}^{m'}(\cos\theta)P_l^m(\cos\theta)\\
+	&=\delta_{m,\,m'}\delta_{l,\,l'}
+\end{aligned}\end{equation}
+となり直交性を示せた。
+
+また、球面調和関数は完全系をなしているため任意の角度方向の関数は
+\begin{align}
+	f(\theta,\,\varphi) &= \sum_{l=0}^{\infty}\sum_{m=l}^{l} a_{lm}Y_l^m(\theta,\,\varphi)\\
+	a_{lm} &=\int_{0}^{\pi} d\theta\sin\theta\int_{0}^{2\pi}d\varphi f(\theta,\,\varphi)Y_l^{m*}(\theta,\,\varphi)
+\end{align}
+というように展開できる。
+
+\subsection{球面調和関数の加法定理}
+もとのポアソン方程式を解くときの座標の取り方を思い出そう。
+このとき、極座標の軸は\(\vb*{r}\)の方向としていた。
+座標系の取り方に恣意性があるのはあまりよくないと考えるのは物理である。
+なので座標系によらない表示を考える。
+
+ある3次元極座標のもと2点\((r_1,\,\theta_1,\,\varphi_1),\quad (r_2,\,\theta_2,\,\varphi_2)\)に
+電荷\(q_1,\,q_2\)があるとし、この二点の間の角度を\(\gamma\)とする。
+\(r_1>r_2\)のとき\(q_1\)の感じる位置エネルギーはルジャンドル多項式による展開を用いて
+\begin{equation}
+	\phi = \frac{q_1 q_2}{4\pi\varepsilon r_1} \sum_{l=0}^{\infty}P_l(\cos\gamma)\qty(\frac{r_2}{r_1})^l
+\end{equation}
+というように書ける。
+この式が
+\begin{equation}
+	\phi = \frac{q_1 q_2}{4\pi\varepsilon r_1}
+	\sum_{l=0}^{\infty}\frac{4\pi}{2l+1}\sum_{m=-l}^{l} Y_l^m(\theta_1,\,\varphi_1) Y_l^{m*}(\theta_2,\,\varphi_2)\qty(\frac{r_2}{r_1})^l
+\end{equation}
+と書ける、つまり
+\begin{equation}
+	P_l(\cos\gamma) = \frac{4\pi}{2l+1}\sum_{m=-l}^{l} Y_l^m(\theta_1,\,\varphi_1) Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{equation}
+が成り立つことを示すのがこの節の目標である。
+証明の過程でわかるが、球面調和関数についている\(*\)はどちらの球面調和関数についてもよい。
+
+% TODO 以下の証明はよくわかっていないので加筆が必要
+いま
+\begin{equation}
+	P_l(\cos\gamma) = \sum_{m=-l}^{l} A_{lm}Y_l^m(\theta_1,\,\varphi_1)
+\end{equation}
+というように\(l\)次のルジャンドル多項式であるため、\(l\)次の球面調和関数で展開できるとする。% 特にここ!
+球面調和関数の直交性より
+\begin{equation}
+	A_{lm} = \int_{0}^{\pi} d\theta_1 \sin\theta_1 \int_{0}^{2\pi} d\varphi_1 Y_l^{m*}(\theta_1,\,\varphi_1) P_l(\cos\gamma).
+\end{equation}
+
+\((r_2,\,\theta_2,\,\varphi_2)\)の点の方向を軸とした極座標系で\(e_1\)の置かれた点の座標を書くと
+方位角は適当に\(\psi\)として\((r_1,\,\gamma,\,\psi)\)とおける。
+すると球面調和関数\(Y_l^{m*}(\theta_1,\,\varphi_1)\)は
+\begin{equation}
+	Y_l^{m*}(\theta_1,\,\varphi_1) = \sum_{m'=-l}^{l} a_{lm'}Y_l^{m'}(\gamma,\,\psi)
+\end{equation}
+である。
+右辺を\(\gamma=0\)としたとき左辺の引数は\((\theta_2,\,\varphi_2)\)となっているはずなので
+\begin{equation}
+	Y_l^{m*}(\theta_2,\,\varphi_2) = \sum_{m'=-l}^{l} a_{lm'}Y_l^{m'}(0,\,\psi)
+\end{equation}
+である。
+\(m'\neq0\)の時には必ず\(\sin\theta\)の項が入るので
+\begin{equation}\begin{aligned}[b]
+    Y_l^{m'}(0,\,\psi) &= 0 \qquad (m'\neq 0) \\
+	Y_l^{0}(0,\,\psi) &= \sqrt{\frac{2l+1}{4\pi}}
+\end{aligned}\end{equation}
+となる。
+これより
+\begin{equation}\begin{aligned}[b]
+    Y_l^{m*}(\theta_2,\,\varphi_2) &= a_{l0}\sqrt{\frac{2l+1}{4\pi}}\\
+	a_{l0}& = \sqrt{\frac{4\pi}{2l+1}} Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{aligned}\end{equation}
+これを\(A_{lm}\)の展開係数の式に入れると\(\theta_1,\,\varphi_1\)の引数が\(\gamma,\,\psi\)に変換されていることに注意すると
+% TODO どういうこと?
+\begin{equation}\begin{aligned}[b]
+    A_{lm} &=\int_{0}^{\pi} d\gamma \sin\gamma \int_{0}^{2\pi} d\psi
+	P_l(\cos\gamma)\sum_{m'=-l}^{l}a_{lm'}Y_l^{m'}(\gamma,\,\psi)\\
+	&=\sqrt{\frac{4\pi}{2l+1}}a_{l0}\\
+	&=\frac{4\pi}{2l+1}Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{aligned}\end{equation}
+式変形の途中で球面調和関数の直交性を使った。
+以上より
+\begin{equation}
+	P_l(\cos\gamma) = \frac{4\pi}{2l+1}\sum_{m=-l}^{l} Y_l^m(\theta_1,\,\varphi_1) Y_l^{m*}(\theta_2,\,\varphi_2)
+\end{equation}
+というのが言えた。
+この式は多極子を考える際にはよく使うものである。
+すると因子\(4\pi/(2l+1)\)がうっとうしくなるので
+\begin{equation}
+	Z_l^m(\theta,\,\varphi) := \sqrt{\frac{4\pi}{2l+1}} Y_l^m(\theta,\,\varphi)
+	= (-1)^{\frac{m+\abs{m}}{2}}\sqrt{\frac{(l-\abs{m})!}{(l+\abs{m})!}}P_l^m(\cos\theta)e^{im\varphi}
+\end{equation}
+という Racah の規格化をとることが多い。
+
+おまけに、この加法定理は実関数を用いて表すと
+\begin{equation}
+	P_l(\cos\gamma) = P_l(\cos\theta_1)P_l(\cos\theta_2)
+	+ 2\sum_{m=1}^{l}\frac{(l-m)!}{(l+m)!}P_l^m(\cos\theta_1)P_l^m(\cos\theta_2)\cos m(\varphi_1-\varphi_2)
+\end{equation}
+と書ける。
+
+\subsection{ルジャンドル陪多項式と球面調和関数の位相(余談)}
+
+ルジャンドル陪多項式の位相の付け方については文献や数値計算ライブラリでの表記ゆれがとくにひどい。
+この\((-1)\)の位相をルジャンドル陪多項式やもっと前のルジャンドル多項式に押し付けている文献もあれば、
+\(m\) の符号で球面調和関数の定義を分けるものもある。
+ルジャンドル陪多項式の\(m\)を負の符号で定義するかしないかも
+なのでルジャンドル多項式やルジャンドル陪多項式を数値計算で利用する際には、
+ライブラリの使用を確認しなければならない。
+ただ表記ゆれはあるが、球面調和関数の値自体は合うようにできている。
+ここで話が済めばよいのだが、
+ランダウは係数に\(i^l\)をさらに付け加えている。
+これを導入すると角運動量の合成の観点からもっとも自然であるそうだが、
+よくわからない。まったく、統一してほしいものだ。
+
+% \section{ベクトル球面調和関数}
+% ここまでではスカラー場\(\phi\)に関するラプラス方程式を解くために、
+% 球面調和関数を導入した。
+% 世の中もちろんスカラー場だけではなくベクトル場もあり、
+% これのラプラシアンをとるような微分方程式もある。
+% これを3次元極座標のもとで解くとなったとき、
+% 似たような系であることから球面調和関数が使えると想像できる。
+% これがベクトル球面調和関数である。
+
+% ただ、これはここで一般論をやるよりかは、多極子と一緒に学んだ方がよいと思われるのでこの章では扱わない。
+
+\end{document}
