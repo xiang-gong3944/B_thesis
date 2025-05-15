@@ -1,0 +1,56 @@
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{physics} % http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/physics/physics.pdf
+\usepackage{siunitx} %SI単位を楽に出力
+\usepackage{mathtools} %環境の追加
+\usepackage{pdfpages}
+\usepackage[subrefformat=parens]{subcaption} %(a)図のようにすることができるやつ
+\usepackage{here}
+\usepackage{mathrsfs}
+\usepackage{url}
+\usepackage{subfiles}
+\usepackage{amsthm} % 定理環境
+% \usepackage{circuitikz} %電気回路をtex中で書く
+% \usepackage{caption} %番号なしキャプションを書く
+% \usepackage{cancel} %式中に斜線を入れる
+% \usepackage{tensor} %テンソルの添え字を書く
+\usepackage{tikz} %図を書く
+% \usepackage{ascmac} %四角い枠の中に文章を書く
+% \usepackage{float} %figureで[hbp]オプションを使う
+% \usepackage{hyperref}  \usepackage{pxjahyper} %ハイパーリンクをつかう
+% \usepackage{tablefootnote} %表中に注釈をいれる
+% \usepackage[thicklines]{cancel} %数式中の取り消し線
+% \usepackage[version=4]{mhchem} %化学式の入力
+% \usepackage{wrapfig} %文章の回り込み
+
+% 証明環境の設定
+\renewcommand{\proofname}{\textbf{証明}}
+
+% 囲み枠の設定
+% 参考 https://qiita.com/rityo_masu/items/5ef248024b294d72799a
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable, skins, theorems}
+
+\newtcbtheorem{tcbdfn}{定義}{enhanced,
+    attach boxed title to top left={xshift=5mm,yshift=-3mm},
+    boxed title style={colframe = green!35!black, colback = white},
+    coltitle = black,
+    colback = white,
+    colframe = green!35!black,
+    fonttitle = \bfseries,
+    breakable = true,
+    top = 4mm
+}{tcbdfn}
+
+\newtcbtheorem{tcbthm}{定理}{enhanced,
+    attach boxed title to top left={xshift=5mm,yshift=-3mm},
+    boxed title style={colframe = blue!35!black, colback = white},
+    coltitle = black,
+    colback = white,
+    colframe = blue!35!black,
+    fonttitle = \bfseries,
+    breakable = true,
+    top = 4mm
+}{tcbthm}
+
