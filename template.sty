@@ -28,11 +28,14 @@
 \renewcommand{\proofname}{\textbf{証明}}
 
 % 囲み枠の設定
-% 参考 https://qiita.com/rityo_masu/items/5ef248024b294d72799a
+% 参考
+% https://qiita.com/rityo_masu/items/5ef248024b294d72799a
+% https://note.com/dragon_notepad/n/ne2a1392cf8ce
+
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable, skins, theorems}
 
-\newtcbtheorem{tcbdfn}{定義}{enhanced,
+\newtcbtheorem[number within = chapter]{defbox}{定義}{enhanced,
     attach boxed title to top left={xshift=5mm,yshift=-3mm},
     boxed title style={colframe = green!35!black, colback = white},
     coltitle = black,
@@ -41,9 +44,9 @@
     fonttitle = \bfseries,
     breakable = true,
     top = 4mm
-}{tcbdfn}
+}{defbox}
 
-\newtcbtheorem{tcbthm}{定理}{enhanced,
+\newtcbtheorem[number within = chapter]{theorembox}{定理}{enhanced,
     attach boxed title to top left={xshift=5mm,yshift=-3mm},
     boxed title style={colframe = blue!35!black, colback = white},
     coltitle = black,
@@ -52,5 +55,39 @@
     fonttitle = \bfseries,
     breakable = true,
     top = 4mm
-}{tcbthm}
+}{theorembox}
 
+\newtcbtheorem[number within = chapter]{examplebox}{例}{enhanced,
+    attach boxed title to top left={xshift=5mm,yshift=-3mm},
+    boxed title style={colframe = red!75!black, colback = white},
+    coltitle = black,
+    colback = white,
+    colframe = red!75!black,
+    fonttitle = \bfseries,
+    breakable = true,
+    top = 4mm
+}{examplebox}
+
+\tcbset{
+  proofstyle/.style={
+    enhanced,
+    colback=white,
+    colframe=white,
+    borderline west={1pt}{0pt}{black!50!white}, % 左側に黒い縦線
+    boxrule=0pt,
+    sharp corners,
+    before skip=10pt,
+    after skip=10pt,
+    breakable,
+    coltitle=black,
+    fonttitle=\bfseries,attach boxed title to top left={xshift=0.5mm,yshift=-1mm}, % タイトルの位置調整
+    boxed title style={
+      colback=gray!35!white,      % タイトル背景
+      frame hidden,       % タイトル枠線
+      boxrule=0.5pt,
+      rounded corners
+    },
+    after upper={\hfill$\square$}
+  }
+}
+\newtcolorbox{proofbox}[1][]{proofstyle,title=証明,#1}
