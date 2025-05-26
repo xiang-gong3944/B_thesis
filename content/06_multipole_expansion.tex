@@ -14,7 +14,11 @@ cgs-Gauss 単位系におけるスカラーポテンシャルのポアソン方�
 である\footnote{よく見るSI単位系からcgs-Gauss に直すには、
 ざっくり言うと電荷密度や電流密度に\(4\pi\)をつけて、
 時間微分が入ってそうなところには\(1/c\)を付ければよい。}。
-これの解はルジャンドル多項式と球面調和関数の加法定理を用いて
+これの解はルジャンドル多項式と球面調和関数の加法定理
+\begin{equation}\begin{aligned}[b]
+    P_l(\cos\theta) = \frac{4\pi}{2l+1}\sum_{m=-l}^{l}Y_l^m(\theta,\varphi)Y_l^{m*}(\theta',\varphi')
+\end{aligned}\end{equation}
+を用いて
 \begin{equation}\begin{aligned}[b]
     \phi(\vb*{r})
     &= \int d\vb*{r'} \frac{\rho(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}
@@ -71,16 +75,9 @@ Notation が増えて申しわけないが、
 を表している。
 ここで変な方向の成分が出てきた。
 これは Spherical basis と呼ばれる基底である。
-通常の光を直線変更で表したものに対し、円偏光で表したものに相当すると思われる。
-
-% % TODO なんで相当するものになるかの説明
-% 書き下すと\(z\)方向に進む光は
-% \begin{align}
-%     E(z,\,t)
-%     &= \vb*{e}_x E_x \cos(kz-\omega t) + \vb*{e}_y E_y \cos(kz-\omega t)\\
-%     &= -\frac{\vb*{e}_x+i\vb*{e}_y}{\sqrt{2}}\frac{-E_x+iE_y}{\sqrt{2}} \cos(kz-\omega)
-%     + \frac{\vb*{e}_x - i\vb*{e}_y}{\sqrt2}\frac{E_x+iE_y}{\sqrt{2}} \cos(kz-\omega t)
-% \end{align}
+光の偏光の表し方に似ている。
+直線偏光で表すと\(x,y\)方向の重ね合わせで任意の偏光は書けるが、
+円偏光\(x+iy,x-iy\)の重ね合わせでも任意の偏光を表せるというイメージの基底である。
 
 また、上の計算を見てわかるように\(O_l^{m*}(\vb*{r})\)というのが
 多極子の形を決めるのがわかる。
@@ -123,7 +120,7 @@ Notation が増えて申しわけないが、
     &=\sqrt{\frac{3}{8}}(x^2-y^2+2ixy) = \sqrt{\frac{3}{8}}(x+iy)^2,
 \end{aligned}\end{equation}
 というようになっていく。
-くどいようだが、最終的には\(f\)電子の物性を考えたいため\(l=3\)の電気八極子も展開していく。
+\(l=3\)の電気八極子も展開して求めていく。
 \(l=3,\,m=3\)のとき
 \begin{equation}\begin{aligned}[b]
     O_3^3(\vb*{r})
@@ -263,20 +260,56 @@ Notation が増えて申しわけないが、
     \div \vb*{A}(\vb*{r})=0
 \end{equation}
 を用いた。
-これを多重極展開を用いた解は
+この微分方程式の形自体はスカラーポテンシャルのときと同じなので、
+以下のように解は同じ形になる。
 \begin{equation}\begin{aligned}[b]
     \vb*{A}(\vb*{r})
-    &= \frac{1}{c}\int d\vb*{r'} \frac{\rho(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
-    &= \frac{1}{c}\sum_{l=0}^{\infty} \frac{1}{r^{l+1}}\int d\vb*{r'} \vb*{j}(\vb*{r'}){r'}^l P_l(\cos\theta')\\
-    &= \frac{1}{c}\sum_{l=0}^{\infty} \frac{1}{r^{l+1}} Z_l^m(\theta,\,\varphi)\int d\vb*{r'} \vb*{j}(\vb*{r'}){r'}^l Z_l^{m*}(\theta',\,\varphi')\\
-    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{cr^{l+1}}Z_l^m(\theta,\,\varphi) \int d\vb*{r'} \vb*{j}(\vb*{r'}) O_l^{m}(\vb*{r'})
+    &= \frac{1}{c}\int d\vb*{r'} \frac{\vb*{j}(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
+    &= \sum_{l=0}^{\infty}\sum_{m=-l}^{l}\sqrt{\frac{4\pi}{2l+1}}\frac{Y_l^m(\vb*{r})}{r^{l+1}}
+        \times \frac{1}{c}\int d\vb*{r'} \vb*{j}(\vb*{r'})O_l^m(\vb*{r'})
+\end{aligned}\end{equation}
+ここで残った積分が問題である。
+電流は3成分あるベクトルと回転に対する変換性を表す\(O_l^m(r)\)そのまま組み合わせるのは筋が悪く、
+うまいこと電流の成分を分けてやる必要がある。
+
+なので多重極展開をする前にいろいろと細工をする。
+まず電流は保存している、つまり\(\nabla\cdot\vb*{j}(\vb*{r})\)であることを利用した恒等式
+\begin{equation}\begin{aligned}[b]
+    j_i(\vb*{r})=\partial_k(r_ij_k(\vb*{r}))
+\end{aligned}\end{equation}
+よりベクトルポテンシャルは
+\begin{equation}\begin{aligned}[b]
+    A_i(\vb*{r})
+    &= \frac{1}{c}\int d\vb*{r'}\frac{\partial_k'(r_i'j_k(\vb*{r'}))}{\abs{\vb*{r}-\vb*{r'}}}\\
+    &= -\frac{1}{c}\int d\vb*{r'}[r_i'j_k(\vb*{r'})]\partial_k'\qty(\frac{1}{\abs{\vb*{r}-\vb*{r'}}})\\
+    &= \frac{1}{c}\int d\vb*{r'}[r_i'j_k(\vb*{r'})]\partial_k\qty(\frac{1}{\abs{\vb*{r}-\vb*{r'}}})\\
+    &= \frac{1}{c}\partial_k\int d\vb*{r'}\frac{r_i'j_k(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}
 \end{aligned}\end{equation}
 となる。
-このまま積分の中身を\(J_{lm}\)と定義するという案もあるが、
-どうやらベクトルポテンシャルのゲージ不変性で不都合が出るらしい\cite{Stefan2016}。
-総和の中は以下のように変形できる。
+ここで\(r_i'j_k(\vb*{r'})\)を以下のように対称成分と反対称成分に分ける。
+\begin{equation}\begin{aligned}[b]
+    r_i'j_k(\vb*{r'})
+    &= \frac{r_i'j_k(\vb*{r'})+r_k'j_i(\vb*{r'})}{2}+\frac{r_i'j_k(\vb*{r'})-r_k'j_i(\vb*{r'})}{2}\\
+    &= \frac{r_i'j_k(\vb*{r'})+r_k'j_i(\vb*{r'})}{2}+\frac{\epsilon_{ikm}\epsilon_{mpq}r_p'j_q(\vb*{r'})}{2}
+\end{aligned}\end{equation}
+これは今の段階だと読み取るのは難しいが、
+電流の渦成分と放射成分に分けたのに対応する。
 
-以下この節は工事中
+反対称成分によるベクトルポテンシャル\(\vb*{A}_M\)を考える。
+\begin{equation}\begin{aligned}[b]
+    A_{i,M}(\vb*{r})
+    &= \frac{1}{2c}\partial_k\int d\vb*{r'}\frac{\epsilon_{ikm}\epsilon_{mpq}r_p'j_q(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
+    &= \frac{1}{2c}\epsilon_{ikm}\partial_k\int d\vb*{r'}\frac{\epsilon_{mpq}r_p'j_q(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}
+\end{aligned}\end{equation}
+これを成分表示からベクトル表示に直すと
+\begin{equation}\begin{aligned}[b]
+    \vb*{A}_{M}(\vb*{r})
+    &= \frac{1}{2c}\nabla\times\int d\vb*{r'}\frac{\vb*{r'}\times\vb*{j}(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
+    &= \nabla\times\qty[\sum_{l=0}^{\infty}\sum_{m=-l}^{l}\sqrt{\frac{4\pi}{2l+1}}\qty(\frac{Y_l^m(\theta,\,\varphi)}{r^{l+1}})
+    \frac{1}{2c}\int d\vb*{r'}[\vb*{r'}\times\vb*{j}(\vb*{r'})]O_l^m(\vb*{r'})]
+\end{aligned}\end{equation}
+
+
 
 \clearpage
 
