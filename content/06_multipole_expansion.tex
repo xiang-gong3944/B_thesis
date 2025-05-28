@@ -270,8 +270,10 @@ Notation が増えて申しわけないが、
 \end{aligned}\end{equation}
 ここで残った積分が問題である。
 電流は3成分あるベクトルと回転に対する変換性を表す\(O_l^m(r)\)そのまま組み合わせるのは筋が悪く、
-うまいこと電流の成分を分けてやる必要がある。
+ベクトルだけを表す部分と系を特徴づける定数に分けてやりたい。
 
+\clearpage
+\subsubsection*{案1}
 なので多重極展開をする前にいろいろと細工をする。
 まず電流は保存している、つまり\(\nabla\cdot\vb*{j}(\vb*{r})\)であることを利用した恒等式
 \begin{equation}\begin{aligned}[b]
@@ -312,7 +314,7 @@ Notation が増えて申しわけないが、
 
 
 \clearpage
-
+\subsubsection*{案2}
 目標:
 \begin{align}
     \frac{1}{cr^{l+1}} Z_l^m(\theta,\,\varphi) &\int d\vb*{r'} \vb*{j}(\vb*{r'}) O_l^{m}(\vb*{r'})\notag\\
