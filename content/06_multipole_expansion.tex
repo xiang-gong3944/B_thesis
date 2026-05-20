@@ -24,15 +24,15 @@ cgs-Gauss 単位系におけるスカラーポテンシャルのポアソン方�
     &= \int d\vb*{r'} \frac{\rho(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}
     = \sum_{l=0}^{\infty} \frac{1}{r^{l+1}} \int d\vb*{r'} \rho(\vb*{r'}) {r'}^{l} P_l(\cos\theta')\\
     &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}\int d\vb*{r'} \rho(\vb*{r'}){r'}^l Z_l^m(\theta,\,\varphi) Z_l^{m*} (\theta',\,\varphi')\\
-    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}Z_l^m(\theta,\,\varphi) \qty[\int d\vb*{r'} O_l^{m} (\theta',\,\varphi')\rho(\vb*{r'})]\\
+    &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}Z_l^m(\theta,\,\varphi) \qty[\int d\vb*{r'} O_l^{m}(\vb*{r'})\rho(\vb*{r'})]\\
     &=:\sum_{l=0}^{\infty} \sum_{m=-l}^{l} \frac{1}{r^{l+1}}Z_l^m(\theta,\,\varphi) Q_l^m
 \end{aligned}\end{equation}
 というように整理できる。
 Notation が増えて申しわけないが、
 途中で導入した\(O_l^m(\theta,\,\varphi),\,Q_l^m\)は
 \begin{align}
-    O_l^m(\vb*{r}) &:= r^l Z_l^{*}(\theta,\,\varphi) = \sqrt{\frac{4\pi}{2l+1}}r^lY_l^{m*}(\theta,\,\varphi)\\
-    Q_l^m &:= \int d\vb*{r'} O_l^{m} (\theta',\,\varphi') \rho(\vb*{r'})
+    O_l^m(\vb*{r}) &:= r^l Z_l^{m*}(\theta,\,\varphi) = \sqrt{\frac{4\pi}{2l+1}}r^lY_l^{m*}(\theta,\,\varphi)\\
+    Q_l^m &:= \int d\vb*{r'} O_l^{m}(\vb*{r'}) \rho(\vb*{r'})
 \end{align}
 というのを導入した。
 これは電気多極子モーメントになっている。
@@ -51,27 +51,27 @@ Notation が増えて申しわけないが、
      Q_1^{ 1}
     &= \int d\vb*{r'}  r' Z_1^{1*} (\theta',\,\varphi') \rho(\vb*{r'})\\
     &= \int d\vb*{r'} \qty{- \frac{r'\sin\theta'}{\sqrt{2}}e^{- i\varphi'}} \rho(\vb*{r'})\\
-    &= \int d\vb*{r'} \qty{- \frac{x+iy}{\sqrt{2}}} \rho(\vb*{r'}),
+    &= \int d\vb*{r'} \qty{- \frac{x-iy}{\sqrt{2}}} \rho(\vb*{r'}),
 \end{aligned}\end{equation}
 \(l=1,\,m=0\)では
 \begin{equation}\begin{aligned}[b]
     Q_1^0
     &= \int d\vb*{r'}  r' Z_1^0 (\theta',\,\varphi') \rho(\vb*{r'})\\
     &= \int d\vb*{r'}  r' \cos\theta' \rho(\vb*{r'})\\
-    &= \int d\vb*{r'} z \rho(\vb*{r}),
+    &= \int d\vb*{r'} z \rho(\vb*{r'}),
 \end{aligned}\end{equation}
 \(l=1,\,m=-1\) では
 \begin{equation}\begin{aligned}[b]
     Q_1^{- 1}
     &= \int d\vb*{r'}  r' Z_1^{- 1*} (\theta',\,\varphi') \rho(\vb*{r'})\\
-    &= \int d\vb*{r'} \frac{r'\sin\theta'}{\sqrt{2}}e^{- i\varphi'} \rho(\vb*{r'})\\
+    &= \int d\vb*{r'} \frac{r'\sin\theta'}{\sqrt{2}}e^{ i\varphi'} \rho(\vb*{r'})\\
     &= \int d\vb*{r'} \frac{x+iy}{\sqrt{2}} \rho(\vb*{r'}),
 \end{aligned}\end{equation}
 というようになっている。
 これは
 \(m=0\)では電気双極子モーメントの\(z\)成分、
-\(m=1\)では電気双極子モーメントの\(-(x+iy)/\sqrt{2}\)成分、
-\(m=-1\)では電気双極子モーメントの\((x-iy)/\sqrt{2}\)成分、
+\(m=1\)では電気双極子モーメントの\(-(x-iy)/\sqrt{2}\)成分、
+\(m=-1\)では電気双極子モーメントの\((x+iy)/\sqrt{2}\)成分、
 を表している。
 ここで変な方向の成分が出てきた。
 これは Spherical basis と呼ばれる基底である。
@@ -79,7 +79,7 @@ Notation が増えて申しわけないが、
 直線偏光で表すと\(x,y\)方向の重ね合わせで任意の偏光は書けるが、
 円偏光\(x+iy,x-iy\)の重ね合わせでも任意の偏光を表せるというイメージの基底である。
 
-また、上の計算を見てわかるように\(O_l^{m*}(\vb*{r})\)というのが
+また、上の計算を見てわかるように\(O_l^{m}(\vb*{r})\)というのが
 多極子の形を決めるのがわかる。
 \(l=2\)の電気四重極子の形を見るため、\(O_l^m\)を整理していこう。
 \(l=2,\,m=2\)のとき、
@@ -148,9 +148,9 @@ Notation が増えて申しわけないが、
 \end{aligned}\end{equation}
 \(l=3,\,m=0\)のとき
 \begin{equation}\begin{aligned}[b]
-    O_3^(\vb*{r})
+    O_3^0(\vb*{r})
     &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{0}(\theta,\,\varphi)\\
-    &= \frac{r^3}{2}  (5\cos^2\theta-3\cos\theta)\\
+    &= \frac{r^3}{2}  (5\cos^3\theta-3\cos\theta)\\
     &= \frac{z(5z^2-3r^2)}{2},
 \end{aligned}\end{equation}
 \(l=3,\,m=-1\)のとき
@@ -171,11 +171,11 @@ Notation が増えて申しわけないが、
 \end{aligned}\end{equation}
 \(l=3,\,m=-3\)のとき
 \begin{equation}\begin{aligned}[b]
-    O_3^3(\vb*{r})
-    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{3*}(\theta,\,\varphi)
+    O_3^{-3}(\vb*{r})
+    &= r^3 \sqrt{\frac{4\pi}{7}} Y_3^{-3*}(\theta,\,\varphi)
     = \frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos\varphi+i\sin\varphi)^3\\
-    &= \frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos^3\varphi - 3\cos\varphi\sin^2\varphi + i(-\sin^3\varphi - 3\cos^2\varphi\sin\varphi))\\
-    &= \frac{\sqrt{5}}{4} \Big\{x^3-3xy^2+i(-y^3-+3x^2y)\Big\}
+    &= \frac{\sqrt{5}r^3}{4} \sin^3\theta (\cos^3\varphi - 3\cos\varphi\sin^2\varphi + i(3\cos^2\varphi\sin\varphi-\sin^3\varphi))\\
+    &= \frac{\sqrt{5}}{4} \Big\{x^3-3xy^2+i(3x^2y-y^3)\Big\}
     = \frac{\sqrt{5}}{4} (x+iy)^3,
 \end{aligned}\end{equation}
 というようになる。
@@ -251,119 +251,602 @@ Notation が増えて申しわけないが、
 これをベクトルポテンシャルという。
 これを cgs-Gauss 単位系のアンペールの式に入れると
 \begin{equation}\begin{aligned}[b]
-    \curl (\curl \vb*{A}(\vb*{r})) &= \frac{4\pi}{c} \vb*{j}(\vb*{r})\\
-    \grad(\div\vb*{A}(\vb*{r})) - \laplacian \vb*{A}(\vb*{r}) &= \frac{4\pi}{c}\vb*{j}(\vb*{r})\\
-    \laplacian \vb*{A}(\vb*{r}) &= -\frac{4\pi}{c}\vb*{j}(\vb*{r})
-\end{aligned}\end{equation}
-最後はクーロンゲージ条件
-\begin{equation}
-    \div \vb*{A}(\vb*{r})=0
-\end{equation}
-を用いた。
-この微分方程式の形自体はスカラーポテンシャルのときと同じなので、
-以下のように解は同じ形になる。
-\begin{equation}\begin{aligned}[b]
-    \vb*{A}(\vb*{r})
-    &= \frac{1}{c}\int d\vb*{r'} \frac{\vb*{j}(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
-    &= \sum_{l=0}^{\infty}\sum_{m=-l}^{l}\sqrt{\frac{4\pi}{2l+1}}\frac{Y_l^m(\vb*{r})}{r^{l+1}}
-        \times \frac{1}{c}\int d\vb*{r'} \vb*{j}(\vb*{r'})O_l^m(\vb*{r'})
-\end{aligned}\end{equation}
-ここで残った積分が問題である。
-電流は3成分あるベクトルと回転に対する変換性を表す\(O_l^m(r)\)そのまま組み合わせるのは筋が悪く、
-ベクトルだけを表す部分と系を特徴づける定数に分けてやりたい。
-
-\clearpage
-\subsubsection*{案1}
-なので多重極展開をする前にいろいろと細工をする。
-まず電流は保存している、つまり\(\nabla\cdot\vb*{j}(\vb*{r})\)であることを利用した恒等式
-\begin{equation}\begin{aligned}[b]
-    j_i(\vb*{r})=\partial_k(r_ij_k(\vb*{r}))
-\end{aligned}\end{equation}
-よりベクトルポテンシャルは
-\begin{equation}\begin{aligned}[b]
-    A_i(\vb*{r})
-    &= \frac{1}{c}\int d\vb*{r'}\frac{\partial_k'(r_i'j_k(\vb*{r'}))}{\abs{\vb*{r}-\vb*{r'}}}\\
-    &= -\frac{1}{c}\int d\vb*{r'}[r_i'j_k(\vb*{r'})]\partial_k'\qty(\frac{1}{\abs{\vb*{r}-\vb*{r'}}})\\
-    &= \frac{1}{c}\int d\vb*{r'}[r_i'j_k(\vb*{r'})]\partial_k\qty(\frac{1}{\abs{\vb*{r}-\vb*{r'}}})\\
-    &= \frac{1}{c}\partial_k\int d\vb*{r'}\frac{r_i'j_k(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}
+    \curl(\curl \vb*{A}(\vb*{r}))
+    &= \frac{4\pi}{c}\vb*{j}(\vb*{r})\\
+    \grad(\div\vb*{A}(\vb*{r}))-\laplacian\vb*{A}(\vb*{r})
+    &= \frac{4\pi}{c}\vb*{j}(\vb*{r})\\
+    \laplacian\vb*{A}(\vb*{r})
+    &= -\frac{4\pi}{c}\vb*{j}(\vb*{r})
 \end{aligned}\end{equation}
 となる。
-ここで\(r_i'j_k(\vb*{r'})\)を以下のように対称成分と反対称成分に分ける。
-\begin{equation}\begin{aligned}[b]
-    r_i'j_k(\vb*{r'})
-    &= \frac{r_i'j_k(\vb*{r'})+r_k'j_i(\vb*{r'})}{2}+\frac{r_i'j_k(\vb*{r'})-r_k'j_i(\vb*{r'})}{2}\\
-    &= \frac{r_i'j_k(\vb*{r'})+r_k'j_i(\vb*{r'})}{2}+\frac{\epsilon_{ikm}\epsilon_{mpq}r_p'j_q(\vb*{r'})}{2}
-\end{aligned}\end{equation}
-これは今の段階だと読み取るのは難しいが、
-電流の渦成分と放射成分に分けたのに対応する。
-
-反対称成分によるベクトルポテンシャル\(\vb*{A}_M\)を考える。
-\begin{equation}\begin{aligned}[b]
-    A_{i,M}(\vb*{r})
-    &= \frac{1}{2c}\partial_k\int d\vb*{r'}\frac{\epsilon_{ikm}\epsilon_{mpq}r_p'j_q(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
-    &= \frac{1}{2c}\epsilon_{ikm}\partial_k\int d\vb*{r'}\frac{\epsilon_{mpq}r_p'j_q(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}
-\end{aligned}\end{equation}
-これを成分表示からベクトル表示に直すと
-\begin{equation}\begin{aligned}[b]
-    \vb*{A}_{M}(\vb*{r})
-    &= \frac{1}{2c}\nabla\times\int d\vb*{r'}\frac{\vb*{r'}\times\vb*{j}(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
-    &= \nabla\times\qty[\sum_{l=0}^{\infty}\sum_{m=-l}^{l}\sqrt{\frac{4\pi}{2l+1}}\qty(\frac{Y_l^m(\theta,\,\varphi)}{r^{l+1}})
-    \frac{1}{2c}\int d\vb*{r'}[\vb*{r'}\times\vb*{j}(\vb*{r'})]O_l^m(\vb*{r'})]
-\end{aligned}\end{equation}
-
-
-
-\clearpage
-\subsubsection*{案2}
-目標:
-\begin{align}
-    \frac{1}{cr^{l+1}} Z_l^m(\theta,\,\varphi) &\int d\vb*{r'} \vb*{j}(\vb*{r'}) O_l^{m}(\vb*{r'})\notag\\
-    &\quad=\sqrt{\frac{l+1}{l}}\quad\underset{=M_m^l}{\underline{\frac{1}{c(l+1)}\int d\vb*{r}[\vb*{r}\times \vb*{j}(\vb*{r})]\cdot \grad O_l^m(\vb*{r})}}
-    \quad\frac{1}{ir^{l+1}}\quad\underset{=\vb*{Z}_{lm}^{(l)}(\vb*{r})}{\underline{\frac{\hat{\vb*{L}}Z_l^m(\theta,\,\varphi)}{\sqrt{l(l+1)}}}}\notag\\
-    &\quad-\sqrt{l+1}\underset{=T_m^l}{\underline{\frac{1}{c(l+1)}\int d\vb*{r}[\vb*{r}\cdot \vb*{j}(\vb*{r})] O_l^m(\vb*{r})}}
-    \quad\underset{=\grad(Z_l^m(\theta,\,\varphi)/r^{l+1})}{\underline{\frac{1}{r^{l+2}}\underset{=\vb*{Z}_{lm}^{(l+1)}}{\underline{\qty[-\frac{1}{r}\frac{(l+1)\vb*{r}Z_l^m(\theta,\,\varphi)+i\vb*{r}\times [\hat{\vb*{L}}Z_l^m(\theta,\,\varphi)]}{\sqrt{l+1}}]}}}}
-\end{align}
-% 電流密度は磁気モーメントをもちいて
-% \begin{equation}
-%     \vb*{j}(\vb*{r}) = c \curl \vb*{M}(\vb*{r})
-% \end{equation}
-% と書ける。
-% これより
-% \begin{equation}
-%     \frac{1}{c}\int d\vb*{r}\, \vb*{j}(\vb*{r}) r^l Z_l^{m*}(\theta,\,\varphi)
-%     = \int d\vb*{r}\, \qty(\curl\vb*{M}(\vb*{r})) O_l^m (\theta,\,\varphi).
-% \end{equation}
-変形していく。
-\begin{equation}\begin{aligned}[b]
-    \int d\vb*{r'} \vb*{j}(\vb*{r'}) O_l^{m}(\vb*{r'})
-    &= \vb*{e}_i \int d\vb*{r'} j_i O_l^{m}\\
-    &= \vb*{e}_i \int d\vb*{r'} \nabla'\cdot(x_i' \vb*{j}) O_l^m\\
-    &= -\int d\vb*{r'} \vb*{r'} (\vb*{j}\cdot \nabla' O_l^m)\\
-    &= \int d\vb*{r'} (\vb*{r'}\times\vb*{j})\times \nabla' O_l^m - \int d\vb*{r'} (\vb*{r'}\cdot\vb*{j})\nabla'O_l^m
-\end{aligned}\end{equation}
-ここで、
-以前やった
+最後の式ではクーロンゲージ条件
 \begin{equation}
-    \grad Z_l^m = \frac{-i}{r^2}\vb*{r}\times \hat{\vb*{L}}Z_l^m
+    \div\vb*{A}(\vb*{r})=0
 \end{equation}
-に注意すると\(\grad O_l^m\)は
+を用いた。
+
+この微分方程式はスカラーポテンシャルの場合と同じ形をしているので、
+局在した定常電流に対する形式解は
 \begin{equation}\begin{aligned}[b]
-    \grad O_l^m
-    &= \grad(r^l Z_l^m)\\
-    &= lr^{l-1}Z_l^m \vb*{e}_r +r^l\qty(-\frac{i}{r^2}\vb*{r}\times \hat{\vb*{L}}Z_l^m)\\
-    &= r^{l-2}\qty(l\vb*{r}Z_l^m-i\vb*{r}\times\hat{\vb*{L}}Z_l^m)\\
-    &=\frac{l\vb*{r}O_l^m-i\vb*{r}\times \hat{\vb*{L}}O_l^m}{r^2}
+    \vb*{A}(\vb*{r})
+    &= \frac{1}{c}\int d\vb*{r'}\,
+    \frac{\vb*{j}(\vb*{r'})}{\abs{\vb*{r}-\vb*{r'}}}\\
+    &= \sum_{l=0}^{\infty}\sum_{m=-l}^{l}
+    \frac{Z_l^m(\theta,\varphi)}{r^{l+1}}
+    \frac{1}{c}\int d\vb*{r'}\,
+    \vb*{j}(\vb*{r'})O_l^m(\vb*{r'})
 \end{aligned}\end{equation}
-と書けるので、第一項の中身は
-\begin{equation}\begin{aligned}[b]
-    (\vb*{r}\times\vb*{j})\times\frac{l\vb*{r}O_l^m-i\vb*{r}\times \hat{\vb*{L}}O_l^m}{r^2}
-    &=-\frac{(\vb*{r}\times\vb*{j})\times(-i\vb*{r}\times\hat{\vb*{L}}O_l^m)}{r^2}\\
-    &= \frac{(\vb*{r}\times\vb*{j})\cdot\hat{\vb*{L}}Z_l^m}{r^2}\vb*{r}\\
-    &=-(\vb*{r}\times \vb*{j})\cdot(l\vb*{r}Z_l^m)
-\end{aligned}\end{equation}
+で与えられる。
+ただし、ここでは
+\begin{equation}
+    O_l^m(\vb*{r})=r^l Z_l^{m*}(\theta,\varphi)
+\end{equation}
+を用いた。
+
+スカラーポテンシャルの場合と異なり、ここで残る係数
+\begin{equation}
+    \frac{1}{c}\int d\vb*{r'}\,
+    \vb*{j}(\vb*{r'})O_l^m(\vb*{r'})
+\end{equation}
+はベクトルである。
+したがって、これをそのまま多極子モーメントと呼ぶよりも、
+電流分布のベクトルとしての変換性を分解してから多極子を定義する方が自然である。
+そのために、まずベクトル球面調和関数を用いて電流を分解する。
+
+\subsection{ルート1}
+\subsubsection*{ベクトル球面調和関数による分解}
+
+導出のために、次の3種類のベクトル球面調和関数を導入する。
+\begin{equation}
+    \boldsymbol{Y}_{lm}
+    =
+    Z_l^m(\theta,\varphi)\vb*{e}_r ,
+\end{equation}
+\begin{equation}
+    \boldsymbol{\Psi}_{lm}
+    =
+    \grad_\Omega Z_l^m(\theta,\varphi),
+\end{equation}
+\begin{equation}
+    \boldsymbol{\Phi}_{lm}
+    =
+    \vb*{e}_r\times\grad_\Omega Z_l^m(\theta,\varphi).
+\end{equation}
+ここで
+\begin{equation}
+    \grad_\Omega
+    =
+    \vb*{e}_\theta\pdv{\theta}
+    +
+    \vb*{e}_\varphi
+    \frac{1}{\sin\theta}\pdv{\varphi}
+\end{equation}
+である。
+
+\(\boldsymbol{Y}_{lm}\)は動径方向の成分、
+\(\boldsymbol{\Psi}_{lm}\)は角度方向の勾配型の成分、
+\(\boldsymbol{\Phi}_{lm}\)は角度方向の回転型の成分である。
+電流密度は一般に
+\begin{equation}
+    \vb*{j}(\vb*{r})
+    =
+    \sum_{lm}
+    \qty[
+    j_{lm}^{Y}(r)\boldsymbol{Y}_{lm}
+    +
+    j_{lm}^{\Psi}(r)\boldsymbol{\Psi}_{lm}
+    +
+    j_{lm}^{\Phi}(r)\boldsymbol{\Phi}_{lm}
+    ]
+\end{equation}
+と展開できる。
+
+定常電流では
+\begin{equation}
+    \div\vb*{j}(\vb*{r})=0
+\end{equation}
+である。
+この条件によって、
+\(\boldsymbol{Y}_{lm}\)成分と
+\(\boldsymbol{\Psi}_{lm}\)成分は独立ではなくなる。
+一方、
+\(\boldsymbol{\Phi}_{lm}\)成分はそれだけで発散なしである。
+したがって、発散なし電流は
+\begin{equation}
+    {
+    \vb*{j}(\vb*{r})
+    =
+    \sum_{lm}
+    \qty[
+    j_{lm}^{\mathrm{M}}(r)
+    \boldsymbol{\Phi}_{lm}
+    +
+    \curl\qty{
+    \tau_{lm}(r)\boldsymbol{\Phi}_{lm}
+    }
+    ]
+    }
+\end{equation}
+と書くことができる。
+
+第一項は回転型の電流であり、通常の磁気多極子を与える。
+第二項は
+\(\boldsymbol{Y}_{lm}\)成分と
+\(\boldsymbol{\Psi}_{lm}\)成分が発散なし条件を満たすように組み合わさったものであり、
+トロイダル型の電流成分を表す。
+
+実際、
+\begin{equation}
+    \curl\qty[
+    f(r)\boldsymbol{\Phi}_{lm}
+    ]
+    =
+    -\frac{l(l+1)}{r}f(r)\boldsymbol{Y}_{lm}
+    -
+    \frac{1}{r}\dv{r}\qty[rf(r)]
+    \boldsymbol{\Psi}_{lm}
+\end{equation}
+であるから、
+\(\curl\qty[\tau_{lm}(r)\boldsymbol{\Phi}_{lm}]\)は
+\(\boldsymbol{Y}_{lm}\)成分と
+\(\boldsymbol{\Psi}_{lm}\)成分を同時に含む。
+しかも、これは curl として書かれているので自動的に発散なしである。
+
+\subsubsection*{磁気型成分}
+
+まず、電流の磁気型成分
+\begin{equation}
+    \vb*{j}^{\mathrm{M}}_{lm}
+    =
+    j_{lm}^{\mathrm{M}}(r)\boldsymbol{\Phi}_{lm}
+\end{equation}
+が作るベクトルポテンシャルを考える。
+この成分に対しては
+\begin{equation}
+    \vb*{A}^{\mathrm{M}}_{lm}(\vb*{r})
+    =
+    a_{lm}^{\mathrm{M}}(r)
+    \boldsymbol{\Phi}_{lm}
+\end{equation}
+と置けばよい。
+この形は
+\begin{equation}
+    \div\vb*{A}^{\mathrm{M}}_{lm}=0
+\end{equation}
+を自動的に満たす。
+
+ベクトルラプラシアンについて
+\begin{equation}
+    \laplacian
+    \qty[
+    f(r)\boldsymbol{\Phi}_{lm}
+    ]
+    =
+    \qty[
+    \frac{1}{r}\dv[2]{r}\qty(rf(r))
+    -
+    \frac{l(l+1)}{r^2}f(r)
+    ]
+    \boldsymbol{\Phi}_{lm}
+\end{equation}
+が成り立つ。
+したがって
+\begin{equation}
+    \laplacian\vb*{A}^{\mathrm{M}}_{lm}
+    =
+    -\frac{4\pi}{c}
+    \vb*{j}^{\mathrm{M}}_{lm}
+\end{equation}
+は動径方向の方程式
+\begin{equation}
+    \frac{1}{r}\dv[2]{r}
+    \qty(ra_{lm}^{\mathrm{M}}(r))
+    -
+    \frac{l(l+1)}{r^2}a_{lm}^{\mathrm{M}}(r)
+    =
+    -\frac{4\pi}{c}j_{lm}^{\mathrm{M}}(r)
+\end{equation}
+に帰着される。
+
+電流が局在しているとして、その外側では右辺が消える。
+したがって外部領域では
+\begin{equation}
+    a_{lm}^{\mathrm{M}}(r)
+    =
+    C_{lm}^{\mathrm{M}}r^{-l-1}
+\end{equation}
+である。
+よって磁気型の外部ベクトルポテンシャルは
+\begin{equation}
+    \vb*{A}^{\mathrm{M}}_{lm}(\vb*{r})
+    =
+    C_{lm}^{\mathrm{M}}
+    \frac{\boldsymbol{\Phi}_{lm}}{r^{l+1}}
+\end{equation}
+の形をとる。
+
+この係数は電流分布の
+\(\boldsymbol{\Phi}_{lm}\)成分で決まる。
+通常の磁気多極子を
+\begin{equation}
+    {
+    M_l^m
+    =
+    \frac{1}{c(l+1)}
+    \int d\vb*{r}\,
+    \qty(\vb*{r}\times\vb*{j}(\vb*{r}))
+    \cdot
+    \grad O_l^m(\vb*{r})
+    }
+\end{equation}
+と定義すると、同値に
+\begin{equation}
+    M_l^m
+    =
+    -\frac{1}{c(l+1)}
+    \int d\vb*{r}\,
+    r^l\vb*{j}(\vb*{r})
+    \cdot
+    \boldsymbol{\Phi}_{lm}^{*}
+\end{equation}
+と書ける。
+したがって磁気型成分は
+\begin{equation}
+    {
+    \vb*{A}^{\mathrm{M}}(\vb*{r})
+    =
+    -\sum_{l=1}^{\infty}\sum_{m=-l}^{l}
+    \frac{M_l^m}{l}
+    \frac{\boldsymbol{\Phi}_{lm}}{r^{l+1}}
+    }
+\end{equation}
+となる。
+ここで \(l=0\) では
+\(\boldsymbol{\Phi}_{00}=0\) であるため、
+磁気単極子に対応する項は現れない。
+
+\subsubsection*{トロイダル型成分}
+
+次に、電流のトロイダル型成分
+\begin{equation}
+    \vb*{j}^{\mathrm{T}}_{lm}
+    =
+    \curl\qty[
+    \tau_{lm}(r)\boldsymbol{\Phi}_{lm}
+    ]
+\end{equation}
+を考える。
+この成分に対するベクトルポテンシャルは
+\begin{equation}
+    \vb*{A}^{\mathrm{T}}_{lm}(\vb*{r})
+    =
+    \curl\qty[
+    a_{lm}^{\mathrm{T}}(r)
+    \boldsymbol{\Phi}_{lm}
+    ]
+\end{equation}
+と置くのが自然である。
+実際、ラプラシアンと curl は可換なので、
+\begin{equation}
+    \laplacian\vb*{A}^{\mathrm{T}}_{lm}
+    =
+    \curl\qty{
+    \laplacian
+    \qty[
+    a_{lm}^{\mathrm{T}}(r)
+    \boldsymbol{\Phi}_{lm}
+    ]
+    }
+\end{equation}
+となり、トロイダル型電流と同じ構造を保ったまま方程式を解ける。
+
+外部領域では
+\begin{equation}
+    a_{lm}^{\mathrm{T}}(r)
+    =
+    C_{lm}^{\mathrm{T}}r^{-l-1}
+\end{equation}
+となる。
+したがって
+\begin{equation}
+    \vb*{A}^{\mathrm{T}}_{lm}(\vb*{r})
+    =
+    C_{lm}^{\mathrm{T}}
+    \curl\qty[
+    \frac{\boldsymbol{\Phi}_{lm}}{r^{l+1}}
+    ].
+\end{equation}
+ここで
+\begin{equation}
+    \curl\qty[
+    \frac{\boldsymbol{\Phi}_{lm}}{r^{l+1}}
+    ]
+    =
+    l\grad\qty(
+    \frac{Z_l^m(\theta,\varphi)}{r^{l+1}}
+    )
+\end{equation}
+である。
+したがってトロイダル型成分の外部ベクトルポテンシャルは勾配型になる。
+
+磁気トロイダル多極子を
+\begin{equation}
+    {
+    T_l^m
+    =
+    \frac{1}{c(l+1)}
+    \int d\vb*{r}\,
+    \qty(\vb*{r}\cdot\vb*{j}(\vb*{r}))
+    O_l^m(\vb*{r})
+    }
+\end{equation}
+と定義すると、
+外部のトロイダル型成分は
+\begin{equation}
+    {
+    \vb*{A}^{\mathrm{T}}(\vb*{r})
+    =
+    -\sum_{l=1}^{\infty}\sum_{m=-l}^{l}
+    T_l^m
+    \grad\qty(
+    \frac{Z_l^m(\theta,\varphi)}{r^{l+1}}
+    )
+    }
+\end{equation}
+と書ける。
+
+この項は外部領域では純粋な勾配である。
+そのため
+\begin{equation}
+    \curl\vb*{A}^{\mathrm{T}}(\vb*{r})=0
+\end{equation}
+となり、静磁場\(\vb*{B}\)には寄与しない。
+したがって、通常の外部静磁場だけを見る磁気多極子展開では
+この成分は見えにくい。
+しかし、電流分布の多極子展開としては独立した構造を持つため、
+磁気トロイダル多極子として残しておくことができる。
+
+\subsubsection*{本文のベクトル球面調和関数への翻訳}
+
+以上では導出を見やすくするために
+\(\boldsymbol{Y}_{lm}\),
+\(\boldsymbol{\Psi}_{lm}\),
+\(\boldsymbol{\Phi}_{lm}\)
+を用いた。
+ここで、前に導入した角運動量演算子
+\begin{equation}
+    \hat{\vb*{L}}
+    =
+    -i\vb*{r}\times\grad
+    =
+    -i\vb*{e}_r\times\grad_\Omega
+\end{equation}
+を使うと、
+\begin{equation}
+    \hat{\vb*{L}}Z_l^m
+    =
+    -i\boldsymbol{\Phi}_{lm}
+\end{equation}
+である。
+したがって
+\begin{equation}
+    \vb*{Z}_{lm}^{(l)}
+    :=
+    \frac{\hat{\vb*{L}}Z_l^m}{\sqrt{l(l+1)}}
+\end{equation}
+と定義すれば、
+\begin{equation}
+    \boldsymbol{\Phi}_{lm}
+    =
+    i\sqrt{l(l+1)}
+    \vb*{Z}_{lm}^{(l)}
+\end{equation}
+である。
+
+また、以前導入した
+\begin{equation}
+    \vb*{Z}_{lm}^{(l+1)}
+    :=
+    -
+    \frac{
+    (l+1)\vb*{r}Z_l^m
+    +
+    i\vb*{r}\times
+    \qty(\hat{\vb*{L}}Z_l^m)
+    }{
+    r\sqrt{l+1}
+    }
+\end{equation}
+は、
+\(\boldsymbol{Y}_{lm}\)と
+\(\boldsymbol{\Psi}_{lm}\)を使うと
+\begin{equation}
+    \vb*{Z}_{lm}^{(l+1)}
+    =
+    \frac{
+    \boldsymbol{\Psi}_{lm}
+    -
+    (l+1)\boldsymbol{Y}_{lm}
+    }{\sqrt{l+1}}
+\end{equation}
+と書ける。
+一方で
+\begin{equation}
+    \grad\qty(
+    \frac{Z_l^m(\theta,\varphi)}{r^{l+1}}
+    )
+    =
+    \frac{1}{r^{l+2}}
+    \qty[
+    -(l+1)\boldsymbol{Y}_{lm}
+    +
+    \boldsymbol{\Psi}_{lm}
+    ]
+\end{equation}
+であるから、
+\begin{equation}
+    \grad\qty(
+    \frac{Z_l^m(\theta,\varphi)}{r^{l+1}}
+    )
+    =
+    \frac{\sqrt{l+1}}{r^{l+2}}
+    \vb*{Z}_{lm}^{(l+1)}
+\end{equation}
+が成り立つ。
+
+したがって、磁気型成分とトロイダル型成分を合わせた外部ベクトルポテンシャルは
+\begin{equation}
+    {
+    \vb*{A}(\vb*{r})
+    =
+    \sum_{l=1}^{\infty}\sum_{m=-l}^{l}
+    \qty[
+    \sqrt{\frac{l+1}{l}}\,
+    M_l^m
+    \frac{\vb*{Z}_{lm}^{(l)}(\theta,\varphi)}
+    {i r^{l+1}}
+    -
+    \sqrt{l+1}\,
+    T_l^m
+    \frac{\vb*{Z}_{lm}^{(l+1)}(\theta,\varphi)}
+    {r^{l+2}}
+    ]
+    }
+\end{equation}
+と書ける。
+
+第一項が通常の磁気多極子であり、
+第二項が磁気トロイダル多極子である。
+第二項は外部領域では勾配型であるため、
+\(\vb*{B}=\curl\vb*{A}\)には寄与しない。
+しかし、電流分布の多極子展開としては
+\(\boldsymbol{\Phi}_{lm}\)型の磁気成分とは別の、
+ポロイダルな電流成分を記録している。
 
 
-\clearpage
+\subsection{ルート2}
+\subsubsection*{磁気多極子と磁気トロイダル多極子への分解}
+ここから先では、上の式に現れた
+\begin{equation}
+    \frac{1}{c}\int d\vb*{r'}\,\vb*{j}(\vb*{r'})O_l^m(\vb*{r'})
+\end{equation}
+を、回転に対する変換性がよい量に分解する。
+電流は定常電流であるため
+\begin{equation}
+    \div\vb*{j}(\vb*{r})=0
+\end{equation}
+を満たすとする。
+この条件は後で、ベクトル球面調和関数のうち独立に残る成分を制限する。
+直感的には、電流分布の渦型の成分が磁気多極子を作り、ポロイダル型の成分が磁気トロイダル多極子を作る。
+
+まず、電場の節で導入した\(\vb*{Z}_{lm}^{(l+1)}\)に加えて、磁気型のベクトル球面調和関数を
+\begin{equation}
+    \vb*{Z}_{lm}^{(l)}(\theta,\,\varphi)
+    :=\frac{\hat{\vb*{L}}Z_l^m(\theta,\,\varphi)}{\sqrt{l(l+1)}}
+\end{equation}
+と定義する。
+これは接線方向かつ回転型のベクトル球面調和関数であり、通常の磁気多極子を担う成分である。
+一方、すでに定義した
+\begin{equation}
+    \vb*{Z}_{lm}^{(l+1)}
+    =-\frac{(l+1)\vb*{r}Z_l^m+i\vb*{r}\times(\hat{\vb*{L}}Z_l^m)}{r\sqrt{l+1}}
+\end{equation}
+は、外部領域では勾配型の成分として現れる。
+実際、
+\begin{equation}\begin{aligned}[b]
+    \grad\qty(\frac{Z_l^m(\theta,\,\varphi)}{r^{l+1}})
+    &= -\frac{(l+1)Z_l^m}{r^{l+2}}\vb*{e}_r
+    +\frac{1}{r^{l+1}}\grad Z_l^m\\
+    &= -\frac{(l+1)\vb*{r}Z_l^m+i\vb*{r}\times(\hat{\vb*{L}}Z_l^m)}{r^{l+3}}\\
+    &= \sqrt{l+1}\frac{\vb*{Z}_{lm}^{(l+1)}(\theta,\,\varphi)}{r^{l+2}}
+\end{aligned}\end{equation}
+である。
+したがって、\(\vb*{Z}_{lm}^{(l+1)}\)で書かれる項は外部では純粋な勾配として表せる。
+
+ここで磁気多極子と磁気トロイダル多極子を
+\begin{align}
+    M_l^m
+    &:=\frac{1}{c(l+1)}\int d\vb*{r}\,
+    \qty(\vb*{r}\times\vb*{j}(\vb*{r}))\cdot\grad O_l^m(\vb*{r}),\\
+    T_l^m
+    &:=\frac{1}{c(l+1)}\int d\vb*{r}\,
+    \qty(\vb*{r}\cdot\vb*{j}(\vb*{r}))O_l^m(\vb*{r})
+\end{align}
+と定義する。
+\(M_l^m\)は電流の回転的な成分、すなわち\(\vb*{r}\times\vb*{j}\)を拾う量であり、
+\(T_l^m\)は電流が動径方向にどのように入り込むかを測る量である。
+後者が磁気トロイダル多極子である。
+
+この定義のもとで、ベクトルポテンシャルの各\((l,m)\)成分は
+\begin{equation}\begin{aligned}[b]
+    &\frac{1}{c}\frac{Z_l^m(\theta,\,\varphi)}{r^{l+1}}
+    \int d\vb*{r'}\,\vb*{j}(\vb*{r'})O_l^m(\vb*{r'})\\
+    &\qquad =
+    \sqrt{\frac{l+1}{l}}\,
+    M_l^m\frac{\vb*{Z}_{lm}^{(l)}(\theta,\,\varphi)}{ir^{l+1}}
+    -\sqrt{l+1}\,
+    T_l^m\frac{\vb*{Z}_{lm}^{(l+1)}(\theta,\,\varphi)}{r^{l+2}}.
+\end{aligned}\end{equation}
+この式は、\(Z_l^m\)とベクトル\(\vb*{j}\)の積を、角運動量の合成
+\begin{equation}
+    l\otimes 1=(l+1)\oplus l\oplus(l-1)
+\end{equation}
+に従って既約成分に分解したものと見ることができる。
+\(\vb*{Z}_{lm}^{(l)}\)への射影が磁気多極子、
+\(\vb*{Z}_{lm}^{(l+1)}\)への射影が磁気トロイダル多極子に対応する。
+残りの\((l-1)\)型の成分は、局在した定常電流に対しては\(\div\vb*{j}=0\)と部分積分により独立な外部多極子としては残らない。
+
+上の射影式を少し確認しておく。
+\(O_l^m=r^lZ_l^{m*}\)は斉次多項式なので
+\begin{equation}
+    \vb*{r}\cdot\grad O_l^m=lO_l^m
+\end{equation}
+を満たす。
+また、定常電流条件から
+\begin{equation}\begin{aligned}[b]
+    \int d\vb*{r}\,j_iO_l^m
+    &= \int d\vb*{r}\,\partial_k(x_i j_k)O_l^m\\
+    &= -\int d\vb*{r}\,x_i j_k\partial_kO_l^m
+\end{aligned}\end{equation}
+となる。
+このような部分積分を使うことで、\(\int\vb*{j}O_l^m\)のうち独立な係数は
+\begin{equation}
+    \int d\vb*{r}\,\qty(\vb*{r}\times\vb*{j})\cdot\grad O_l^m,
+    \qquad
+    \int d\vb*{r}\,\qty(\vb*{r}\cdot\vb*{j})O_l^m
+\end{equation}
+の2つにまとめられる。
+前者は\(\vb*{Z}_{lm}^{(l)}\)の係数を与え、後者は\(\vb*{Z}_{lm}^{(l+1)}\)の係数を与える。
+この意味で、\(M_l^m\)と\(T_l^m\)はベクトル球面調和関数の直交性で取り出された係数である。
+
+以上より、ベクトルポテンシャルは
+\begin{equation}\begin{aligned}[b]
+    \vb*{A}(\vb*{r})
+    &= \sum_{l=1}^{\infty}\sum_{m=-l}^{l}
+    \qty[
+    \sqrt{\frac{l+1}{l}}\,
+    M_l^m\frac{\vb*{Z}_{lm}^{(l)}(\theta,\,\varphi)}{ir^{l+1}}
+    -\sqrt{l+1}\,
+    T_l^m\frac{\vb*{Z}_{lm}^{(l+1)}(\theta,\,\varphi)}{r^{l+2}}
+    ]\\
+    &= \sum_{l=1}^{\infty}\sum_{m=-l}^{l}
+    \qty[
+    \sqrt{\frac{l+1}{l}}\,
+    M_l^m\frac{\vb*{Z}_{lm}^{(l)}(\theta,\,\varphi)}{ir^{l+1}}
+    - T_l^m\grad\qty(\frac{Z_l^m(\theta,\,\varphi)}{r^{l+1}})
+    ]
+\end{aligned}\end{equation}
+と書ける。
+第1項が通常の磁気多極子によるベクトルポテンシャルである。
+第2項が磁気トロイダル多極子による成分である。
+ただし外部領域ではこれは勾配型であるため、磁場には
+\begin{equation}
+    \curl\grad\qty(\frac{Z_l^m}{r^{l+1}})=0
+\end{equation}
+により寄与しない。
+そのため、外部静磁場だけを見る通常の多極子展開では\(T_l^m\)は見えにくい。
+しかし、電流分布の多極子展開としては\(M_l^m\)とは異なる成分として自然に残る。
+
 \section{電荷磁荷対応}
 これまでに3種類の多極子が現れたが、
 時間空間反転対称性の偶奇性から物性を整理することを考えると、
